@@ -10,5 +10,5 @@
     <meta name="robots" content="index.follow" />
     <!-- tailwind css -->
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" />
-    <link rel="stylesheet" type="text/css" href=""/>
+    <link rel="stylesheet" type="text/css" href="src/css/index.css"/>
 </head>
