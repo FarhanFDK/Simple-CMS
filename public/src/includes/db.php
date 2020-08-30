@@ -4,7 +4,7 @@
     $db_password = '';
     $db_name     = 'DB';
     $connection  = mysqli_connect($db_host , $db_user , $db_password , $db_name);
-    if(!$connection){
-        echo "ارتباط با مشکل مواجه شد";
-    }
+        if(!$connection){
+            echo "ارتباط با مشکل مواجه شد";
+        }
 ?>

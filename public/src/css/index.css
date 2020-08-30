@@ -1,13 +1,3 @@
-@font-face{
-    src: url(IranNastaliq.ttf);
-    font-family: Nastaliq;
-}
-
-@font-face{
-    src: url();
-    font-family: ;
-}
-
 body{
     direction: rtl;
     font-family: Nastaliq;
@@ -15,13 +5,25 @@ body{
 }
 
 header{
-
+    top: 0;
+    right: 0;
+    left: 0;
+    position: absolute;
+    background: cyan;
+    width: 100%;
+    height: 100px;
 }
 
 .middle{
-
+    
 }
 
 footer{
-
+    top: 0;
+    right: 0;
+    left: 0;
+    position: absolute;
+    background: cyan;
+    width: 100%;
+    height: 300px;
 }
