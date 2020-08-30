@@ -1,0 +1,27 @@
+@font-face{
+    src: url(IranNastaliq.ttf);
+    font-family: Nastaliq;
+}
+
+@font-face{
+    src: url();
+    font-family: ;
+}
+
+body{
+    direction: rtl;
+    font-family: Nastaliq;
+    background: white;
+}
+
+header{
+
+}
+
+.middle{
+
+}
+
+footer{
+
+}

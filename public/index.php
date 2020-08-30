@@ -6,9 +6,6 @@
         require "src/includes/header.php";
     ?>
     <?php
-        
-    ?>
-    <?php
         require "src/includes/footer.php";
     ?>
 </body>
