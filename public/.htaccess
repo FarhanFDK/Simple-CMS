@@ -4,9 +4,6 @@ DirectoryIndex index.php
 option -Indexed
 
 
-
-
-
 <files .htaccess>
     order allow,deny
     deny from all
