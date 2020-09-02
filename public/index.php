@@ -8,6 +8,9 @@
     <?php
         require "src/includes/header.php";
     ?>
+    <div class="middle">
+        
+    </div>
     <?php
         require "src/includes/footer.php";
     ?>
