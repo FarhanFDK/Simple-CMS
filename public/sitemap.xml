@@ -5,4 +5,7 @@ xmlns="http://www.sitemap.org/schemas/sitemap/0.9">
         <loc>https://www.zedblog.ir/index.php</loc>
         <lastmod>2020-08-08</lastmod>
     </url>
+    <url>
+        <loc>https://www.zedblog.ir/robots.txt</loc>
+        <lastmod>2020-02-09</lastmod>
 </urlset>
