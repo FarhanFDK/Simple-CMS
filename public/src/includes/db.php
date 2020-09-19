@@ -1,10 +1,10 @@
 <?php
-    $db_host     = 'localhost';
-    $db_user     = 'root';
-    $db_password = '';
-    $db_name     = 'DB';
-    $connection  = mysqli_connect($db_host , $db_user , $db_password , $db_name);
-        if(!$connection){
-            echo "ارتباط با مشکل مواجه شد";
-        }
+    $hostName = "";
+    $userName = "";
+    $userPassword = "";
+    $databaseName = "";
+    $connection = mysqli_connect($hostName , $userName , $userPassword , $databaseName);
+    if(!$connection){
+        die("connection to server has failed!");
+    }
 ?>

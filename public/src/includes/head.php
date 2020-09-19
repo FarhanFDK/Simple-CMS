@@ -1,17 +1,21 @@
+<?php
+    $title = "Simple-CMS";
+?>
 <!DOCTYPE html>
-<html lang="fa-IR">
-<head>
-    <!-- configuration -->
-    <meta charset="UTF-8" />
-    <title>CMS</title>
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <meta name="robots" content="index,follow" />
-    <!-- tailwind css -->
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" />
-	<!-- owner css -->
-    <link rel="stylesheet" type="text/css" href="src/css/index.css" />
-    <link rel="stylesheet" type="text/css" href="src/css/fonts.css" />
-    <link rel="stylesheet" type="text/css" href="src/css/media.css" />
-</head>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title><?php echo $title ?></title>
+        <meta name="robots" content="" />
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <link rel="stylesheet" href="src/css/index.css" />
+        <link rel="stylesheet" href="src/css/media.css" />
+        <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" />
+        <link rel="shortcut icon" href="src/images/icons/.." />
+        <link rel="icon" href="src/images/icons/.." />
+        <style>
+        </style>
+    </head>
+    <body>
