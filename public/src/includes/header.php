@@ -1,4 +1,7 @@
 <header class="header">
+    <?php
+        require "src/includes/ad.php";
+    ?>
     <div class="menu">
         <?php
             $hostName = 'localhost';
@@ -10,7 +13,7 @@
             $result = $mysqli->query($sql); 
             while($row = $result->fetch_assoc()){
                 $list_title = $row['list_title'];
-                echo "<a class='text-gray-600' href='http://localhost/Simple-CMS/public/lists/$list_title' title='$list_title'>$list_title</a>";
+                echo "<a class='text-gray-600 m-6' href='http://localhost/Simple-CMS/public/lists/$list_title' title='$list_title'>$list_title</a>";
             }
         ?>
     </div>
