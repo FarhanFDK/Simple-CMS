@@ -7,7 +7,11 @@
     $sql = 'SELECT * FROM ads_lists';
     $result = $mysqli->query($sql);
     if($result->num_rows == 0){
-        echo "<a href='http://localhost/Simple-CMS/public/contact-us.php'><img class='m-auto' src='http://localhost/Simple-CMS/public/src/images/ad.jpg' alt='محل تبلیغ' style='width:500;height:75;'/></a>";
+        echo "<div class='m-auto' style='width:500px;height:75px;'>";
+        echo "  <a href='http://localhost/Simple-CMS/public/contact-us.php' title=''>
+                    <img src='src/images/ad.jpg' />
+                </a>";
+        echo "</div>";
     }else{
         while($row = $result->fetch_assoc()){
             $ad_title = $row['ad_title'];
