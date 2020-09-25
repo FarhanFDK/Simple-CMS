@@ -1,5 +1,5 @@
-<?php 
-    class DB_VISITS{
+<?php
+    class VISITS{
         public $host_name;
         public $user_name;
         public $user_pass;
@@ -12,20 +12,19 @@
         public $mysqli;
         public $sql_update;
         public $row;
+        public $column_name;
+        public $table_name;
         function connect(){
-            $this->host_name = 'localhost';
-            $this->user_name = 'root';
-            $this->user_pass = '';
-            $this->db_name   = 'visits';
             $this->mysqli = NEW MySQLi($this->host_name , $this->user_name , $this->user_pass , $this->db_name);
-            $this->selection = 'SELECT * FROM visits';
             $this->result_selection = $this->mysqli->query($this->selection);
             while($this->row = $this->result_selection->fetch_assoc()){
-                $this->visit_number = $this->row['visit_number'];
+                $this->visit_number = $this->row[$this->column_name];
                 $this->visit_number++;
-                $this->sql_update = "UPDATE visits SET visit_number = '$this->visit_number'";
+                $this->sql_update = "UPDATE $this->table_name SET $this->column_name = '$this->visit_number'";
                 $this->result = $this->mysqli->query($this->sql_update);
             }
         }
     }
-?>
+    class VISITS_PAGE extends VISITS{
+        
+    }
