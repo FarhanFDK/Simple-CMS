@@ -20,13 +20,13 @@
     $visit->connect();
 
 
-    /*$visits = NEW VISITS;
+    $visits = NEW VISITS;
     $visits->host_name = 'localhost';
     $visits->user_name = 'root';
     $visits->user_pass = '';
     $visits->db_name = 'another_page_visits';
     $visits->column = 'visit_number';
     $visits->table_name = 'home/page';
-    $visits->VISITS_INCREASE();*/
+    $visits->connect();
 
 ?>
