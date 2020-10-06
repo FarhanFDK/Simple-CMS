@@ -1,4 +1,28 @@
 <?php
+    class SCANNER{
+        public $directory;
+        public $handle;
+        public $entry;
+        function connect(){
+            if ($this->handle = opendir($this->directory)) {
+                while (false !== ($this->entry = readdir($this->handle))) {
+                    if ($this->entry != "." && $this->entry != "..") {
+            
+                        echo "$this->entry\n";
+                    }
+                }
+                closedir($this->handle);
+            }
+        }  
+    }
+    class DIR_CREATOR{
+        public $directory;
+        function connect(){
+            if(!is_dir($this->directory)){
+            mkdir($this->directory);
+            }
+        }
+    }
     class AD{
         public $host_name;   // SET MANUALLY 
         public $user_name;   // SET MANUALLY 
@@ -67,6 +91,12 @@
                     $this->result2 = mysqli_query($this->connection , $this->query2);
                 }
             }
+        }
+    }
+    class CALENDAR{
+        function show(){
+            require "src/includes/jdf.php";
+            echo jdate('Y/m/d' , '' , '' , 'Asia/Tehran' , 'en');
         }
     }
 ?>

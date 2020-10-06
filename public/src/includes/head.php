@@ -16,6 +16,8 @@
         <link rel="shortcut icon" href="src/images/icons/.." />
         <link rel="icon" href="src/images/icons/.." />
         <script src="https://kit.fontawesome.com/b39b75221a.js" crossorigin="anonymous"></script>
+        <script src="src/js/classes.js"></script>
+        <script src="src/js/functions.js"></script>
         <style>
         </style>
     </head>
