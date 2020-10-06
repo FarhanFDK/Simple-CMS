@@ -15,6 +15,8 @@
             }
         }  
     }
+
+    
     class DIR_CREATOR{
         public $directory;
         function connect(){
@@ -23,6 +25,8 @@
             }
         }
     }
+
+
     class AD{
         public $host_name;   // SET MANUALLY 
         public $user_name;   // SET MANUALLY 
@@ -63,8 +67,8 @@
             }
         }
     }
-?>
-<?php
+
+    
     class VISITS{
         public $host_name;   // SET MANUALLY 
         public $user_name;   // SET MANUALLY
@@ -97,6 +101,101 @@
         function show(){
             require "src/includes/jdf.php";
             echo jdate('Y/m/d' , '' , '' , 'Asia/Tehran' , 'en');
+        }
+    }
+
+
+    class MENU{
+        public $host_name;   // SET MANUALLY
+        public $user_name;   // SET MANUALLY
+        public $user_pass;   // SET MANUALLY
+        public $db_name;     // SET MANUALLY
+        public $table_name;  // SET MANUALLY
+        public $column_title;
+        public $connection;
+        public $query;
+        public $result;
+        public $row;
+        public $title;
+        function connect(){
+            $this->connection = mysqli_connect($this->host_name , $this->user_name , $this->user_pass , $this->db_name);
+            $this->query = "SELECT * FROM `$this->table_name`";
+            $this->result = mysqli_query($this->connection , $this->query);
+            while($this->row = mysqli_fetch_assoc($this->result)){
+                $this->title = $this->row[$this->column_title];
+                echo "<a class='text-gray-600 m-6' href='http://localhost/Simple-CMS/public/`$this->title`' title=`$this->list_title`>$this->title</a>";
+            }
+        }
+    }
+
+
+    class IP{
+        public $client;
+        public $forward;
+        public $remote;
+        public $ip;
+        function getUserIP(){
+            $this->client  = @$_SERVER['HTTP_CLIENT_IP'];
+            $this->forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
+            $this->remote  = $_SERVER['REMOTE_ADDR'];
+    
+            if(filter_var($this->client, FILTER_VALIDATE_IP))
+            {
+                $this->ip = $this->client;
+            }
+            elseif(filter_var($this->forward, FILTER_VALIDATE_IP))
+            {
+                $this->ip = $this->forward;
+            }
+            else
+            {
+                $this->ip = $this->remote;
+            }
+    
+            return $this->ip;
+        }
+    }
+
+
+    class SIGNUP{
+        private $host_name;
+        private $user_name;
+        private $user_pass;
+        private $db_name;
+        private $table_name;
+        private $connection;
+        private $signup_date;
+        private $query;
+        private $result;
+        private $hash_F;
+        private $salt;
+        private $hash_salt;
+        public $email;
+        public $password;
+        public $phonenumber;
+        private function connect(){
+            require "src/includes/jdf.php";
+            $this->signup_date = jdate('Y/m/d g:i:a a' , '' , '' , 'Asia/Tehran' , 'en');
+            $this->host_name = 'localhost';
+            $this->user_name = 'root';
+            $this->user_pass = '';
+            $this->db_name = 'users';
+            $this->table_name = 'users';
+            $this->connection = mysqli_connect($this->host_name , $this->user_name , $this->user_pass , $this->db_name);
+            $this->email = mysqli_real_escape_string($this->connection , $this->email);
+            $this->email = strtolower($this->email);
+            $this->password = mysqli_real_escape_string($this->connection , $this->password);
+            $this->hash = '$5$';
+            $this->salt = 'sixteencharacter';
+            $this->hash_salt = $this->hash . $this->salt;
+            $this->password = crypt($this->password , $this->hash_salt);
+            $this->query = "INSERT INTO `$this->table_name`(email , password , phonenumber) VALUES('$this->email' , '$this->password' , '$this->phonenumber')";
+            $this->result = mysqli_query($this->connection , $this->query);
+            if($this->result){
+                exit("fuck you!");
+            }else{
+                exit("fuck you fuck you!");
+            }
         }
     }
 ?>

@@ -1,7 +1,7 @@
 {
   "name": "simple-cms",
   "version": "1.0.0",
-  "description": "A Simple CMS that you can use it for free!",
+  "description": "",
   "main": "index.php",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

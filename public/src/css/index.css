@@ -23,6 +23,7 @@
 body{
     direction: rtl;
     font-family: Samim;
+    color: rgb(180 , 160 , 200);
 }
 
 
@@ -33,7 +34,12 @@ header{
     position: absolute;
     background-color: rgb(17,15,9);
     width: 100%;
-    height: 120px;
+    height: 100px;
+}
+
+
+.middle{
+    color:black;
 }
 
 
@@ -41,13 +47,67 @@ footer{
     bottom: 0;
     right: 0;
     left: 0;
-    position: absolute;
+    position: relative;
     background-color: rgb(17,15,9);
     width: 100%;
-    height: auto;
+    height: 40rem;
+    font-family: yekan;
 }
 
 
 .mtop{
     margin-top:7.25rem;
+    margin-bottom:7.25rem;
 }
+form {
+	margin: 50px auto;
+	padding: 30px;
+	border: 4px double black;
+	box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
+	width: 400px;
+}
+	h2{
+		margin: 0 0 16px 0;
+		padding: 0;
+	}
+
+	input,
+	label {
+		position: relative;
+		display: inline-block;
+		width: 100%;
+	}
+
+	input[type="text"],
+	input[type="password"] {
+		font-size: 1.25em;
+		padding: 0 0 5px 0;
+		z-index: 10;
+		background: transparent;
+		margin-bottom: 0.5em;
+		border: none;
+		border-bottom: 2px solid black;
+	}
+
+	label {
+		display: inline-block;
+		margin: 0 auto;
+		padding: 0 0 5px 0;
+		transition: all 0.5s ease-in-out; 
+		z-index: 1;
+		top: 36px;
+	}
+
+	input[type="submit"] {
+		cursor: pointer;
+		margin: 1.33em auto;
+		width: 100%;
+		padding: 10px 0;
+		border: 1px solid black;
+	}
+
+
+.filled label {
+	top: 0;
+	font-size: 0.8em;
+} 
