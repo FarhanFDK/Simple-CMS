@@ -23,6 +23,7 @@
 body{
     direction: rtl;
     font-family: Samim;
+    background-color: rgba(235, 222, 222, 0.904);
     color: rgb(180 , 160 , 200);
 }
 
@@ -34,7 +35,7 @@ header{
     position: absolute;
     background-color: rgb(17,15,9);
     width: 100%;
-    height: 100px;
+    height: 130px;
 }
 
 
@@ -56,58 +57,46 @@ footer{
 
 
 .mtop{
-    margin-top:7.25rem;
+    margin-top:10rem;
     margin-bottom:7.25rem;
 }
-form {
-	margin: 50px auto;
-	padding: 30px;
-	border: 4px double black;
-	box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
-	width: 400px;
+
+form{
+    padding: 0;
 }
-	h2{
-		margin: 0 0 16px 0;
-		padding: 0;
-	}
-
-	input,
-	label {
-		position: relative;
-		display: inline-block;
-		width: 100%;
-	}
-
-	input[type="text"],
-	input[type="password"] {
-		font-size: 1.25em;
-		padding: 0 0 5px 0;
-		z-index: 10;
-		background: transparent;
-		margin-bottom: 0.5em;
-		border: none;
-		border-bottom: 2px solid black;
-	}
-
-	label {
-		display: inline-block;
-		margin: 0 auto;
-		padding: 0 0 5px 0;
-		transition: all 0.5s ease-in-out; 
-		z-index: 1;
-		top: 36px;
-	}
-
-	input[type="submit"] {
-		cursor: pointer;
-		margin: 1.33em auto;
-		width: 100%;
-		padding: 10px 0;
-		border: 1px solid black;
-	}
-
-
-.filled label {
-	top: 0;
-	font-size: 0.8em;
-} 
+input[type="checkbox"]{
+    position: relative;
+    top: 2px;
+    width: 15px;
+    height: 15px;
+    -webkit-appearance: none;
+    outline: none;
+    transition: 0.5s;
+}
+input[type="checkbox"]:before{
+    transition: 0.5s;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #262626;
+    box-sizing: border-box;
+}
+input:checked[type="checkbox"]:before{
+    transition: 0.5s;
+    border-left: none;
+    border-top: none;
+    width: 50%;
+    border-color: green;
+    transform: rotate(45deg); /*translate(5px,-10px)*/
+}
+.menu-button{
+    transition: 0.5s;
+}
+.menu-button:hover{
+    transition: .5s;
+    color:white;
+    border-bottom:1px solid grey;
+}

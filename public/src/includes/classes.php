@@ -48,9 +48,11 @@
             $this->query = "SELECT * FROM `$this->table_name`";
             $this->result = mysqli_query($this->connection , $this->query);
             if(!mysqli_num_rows($this->result)){
-                echo "<div class='m-auto' style='width:500px;height:75px;'>";
+                echo "<div class='m-auto ad-image'>";
                 echo "  <a href='http://localhost/Simple-CMS/public/contact-us.php' title=''>
-                            <img src='src/images/ad.jpg' />
+                            <center>
+                                <img class='ad-image' src='src/images/ad.jpg' />
+                            </center>
                         </a>";
                 echo "</div>";
             }else{
@@ -58,7 +60,7 @@
                     $this->ad_title = $this->row[$this->column];
                     $this->ad_link =$this->row[$this->column2];
                     $this->ad_picture = $this->row[$this->column3];
-                    echo "<div class='m-auto' style='width:500px;height:75px;'>";
+                    echo "<div class='m-auto ad-image' style='width:500px;height:75px;'>";
                     echo "  <a href='" . $this->ad_link . "' title='" . $this->ad_title . "'>
                                 <img src='" . $this->ad_picture . "'/>
                             </a>";
@@ -112,18 +114,21 @@
         public $db_name;     // SET MANUALLY
         public $table_name;  // SET MANUALLY
         public $column_title;
+        public $column_href;
         public $connection;
         public $query;
         public $result;
         public $row;
         public $title;
+        public $href;
         function connect(){
             $this->connection = mysqli_connect($this->host_name , $this->user_name , $this->user_pass , $this->db_name);
             $this->query = "SELECT * FROM `$this->table_name`";
             $this->result = mysqli_query($this->connection , $this->query);
             while($this->row = mysqli_fetch_assoc($this->result)){
                 $this->title = $this->row[$this->column_title];
-                echo "<a class='text-gray-600 m-6' href='http://localhost/Simple-CMS/public/`$this->title`' title=`$this->list_title`>$this->title</a>";
+                $this->href = $this->row[$this->column_href];
+                echo "<a class='text-gray-600 my-12 mx-4 menu-button' href=$this->href title=$this->title>$this->title</a> ";
             }
         }
     }

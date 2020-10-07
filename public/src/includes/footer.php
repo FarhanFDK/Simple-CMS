@@ -15,16 +15,26 @@
                         </a>
                     </p>
                     <p class="email my-5 mx-2">
-                        <a class="cursor-pointer" href="tel:info@afragostarnovin.ir">
+                        <a class="cursor-pointer" href="mailto:info@afragostarnovin.ir">
                             <i class="fa fa-envelope fa-30x" aria-hidden="true"></i>
                             info@afragostarnovin.ir
                         </a>
                     </p>
                 </div>
             </div>
-
             <div>
-
+                <p class="mt-4 mr-4">
+                    شرکت افراگسترنوین شرکتی در زمینه فروش دستگاه های کارتخوان و خودپرداز،قطعات و ارائه خدمات دیگر می باشد
+                </p>
+                <p class="mt-4 mr-4">
+                    خدماتی نظیر ساخت وبسایت،طراحی لوگو و شبکه
+                </p>
+                <p class="mt-4 mr-4">
+                    آدرس شرکت:
+                    <address class="mt-2 mr-2">
+                        استان اصفهان ،شهر فولادشهر ،بلوار آیت الله خامنه ای،پارکینگ 33 ،جنب مدرسه نسل فردا ،پاساژ ولیعصر ،طبقه فوقانی ،مغازه کامپیوتر افرا
+                    </address>    
+                </p>
             </div>
         </div>
         <div class="text-center">

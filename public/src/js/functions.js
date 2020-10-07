@@ -27,22 +27,3 @@ $(document).ready(function (){
         }
     });
 });
-
-$(document).ready(function(){
-    $("form input").on("blur input focus", function() {
-        var $field = $(this).closest(".field");
-        if (this.value) {
-            $field.addClass("filled");
-        } else {
-            $field.removeClass("filled");
-        }
-    });
-    $("form input").on("focus", function() {
-        var $field = $(this).closest(".field");
-        if (this) {
-            $field.addClass("filled");
-        } else {
-            $field.removeClass("filled");
-        }
-    });
-});
