@@ -18,6 +18,7 @@
         <script src="https://kit.fontawesome.com/b39b75221a.js" crossorigin="anonymous"></script>
         <script src="src/js/classes.js"></script>
         <script src="src/js/functions.js"></script>
+        <script src="src/jquery/jquery-3.5.1.min.js"></script>
         <style>
         </style>
     </head>

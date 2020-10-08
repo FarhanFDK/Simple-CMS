@@ -2,7 +2,7 @@ function set(){
     document.getElementById("clock").innerText = clock.show();
     setInterval(set , 1000);
 }
-$(document).ready(function (){
+/*$(document).ready(function (){
     $("#submit").on('click' , function(){
         var username=$("#username").val();
         var lastname=$("#lastname").val();
@@ -26,4 +26,4 @@ $(document).ready(function (){
             });
         }
     });
-});
+});*/

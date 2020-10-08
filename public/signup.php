@@ -6,7 +6,7 @@
 		<form class="text-center">
 			<div>
 				<label class="mr-2 text-gray-700 text-l font-bold mb-2 text-none" for="firstname">نام: </label><span class="text-red-700">*</span>
-				<input class="my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="firstname" name="firstname" autocomplete="FALSE"/>
+				<input class="firstname my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="firstname" name="firstname" autocomplete="FALSE"/>
 				<span class="text-gray-700 text-l font-bold mb-2 text-none" id="name"></span>
 			</div>
 			<div>
@@ -46,6 +46,20 @@
     </div>
 </div>
 <script>
-	
+	$(document).ready(function (){
+		$(document).keypress(function(e){
+			let key = e.which;
+			if(e.which == 13){
+				$("#submit").focus();
+			} 
+		});
+		$("#firstname").keypress(function(e){
+			let key = e.which;
+			// alert(key);
+			if(key < 58 && key > 47 || key == 45  || key == 61 || key == 42 || key == 47 || key == 43){
+				e.preventDefault();
+			}
+		})
+	});
 </script>
 <?php require "src/includes/footer.php"; ?>
