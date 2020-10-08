@@ -1,12 +1,13 @@
-<?php require "src/includes/classes.php" ?>
-<?php require "src/includes/head.php" ?>
-<?php require "src/includes/header.php" ?>
+<?php require "src/includes/classes.php"; ?>
+<?php require "src/includes/head.php"; ?>
+<?php require "src/includes/header.php"; ?>
 <div class="middle mtop">
     <div>
 		<form class="text-center">
 			<div>
 				<label class="mr-2 text-gray-700 text-l font-bold mb-2 text-none" for="firstname">نام: </label><span class="text-red-700">*</span>
 				<input class="my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="firstname" name="firstname" autocomplete="FALSE"/>
+				<span class="text-gray-700 text-l font-bold mb-2 text-none" id="name"></span>
 			</div>
 			<div>
 				<label class="text-gray-700 text-l font-bold mb-2 text-none" for="firstname">نام خانوادگی: </label><span class="text-red-700">*</span>
@@ -44,5 +45,7 @@
 		</form>
     </div>
 </div>
-
-<?php require "src/includes/footer.php" ?>
+<script>
+	
+</script>
+<?php require "src/includes/footer.php"; ?>
