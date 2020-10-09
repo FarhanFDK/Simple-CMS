@@ -64,6 +64,8 @@ footer{
 form{
     padding: 0;
 }
+
+
 input[type="checkbox"]{
     position: relative;
     top: 2px;
@@ -73,6 +75,8 @@ input[type="checkbox"]{
     outline: none;
     transition: 0.5s;
 }
+
+
 input[type="checkbox"]:before{
     transition: 0.5s;
     content: '';
@@ -84,6 +88,8 @@ input[type="checkbox"]:before{
     border: 1px solid #262626;
     box-sizing: border-box;
 }
+
+
 input:checked[type="checkbox"]:before{
     transition: 0.5s;
     border-left: none;
@@ -92,11 +98,20 @@ input:checked[type="checkbox"]:before{
     border-color: green;
     transform: rotate(45deg); /*translate(5px,-10px)*/
 }
+
+
 .menu-button{
     transition: 0.5s;
 }
+
+
 .menu-button:hover{
     transition: .5s;
     color:white;
     border-bottom:1px solid grey;
+}
+
+
+.phonenumber{
+    font-family: yekan;
 }
