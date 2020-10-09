@@ -15,6 +15,11 @@
 				<div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="lastname_blur">نام خانوادگی باید بین 4 تا 20 کاراکتر باشد</span></div>
 			</div>
 			<div>
+				<label class="text-gray-700 text-l font-bold mb-2 text-none" for="national_code">شماره ملی: </label><span class="text-red-700">*</span>
+				<input class="ml-12 my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="national_code" name="national_code" maxlength="10" autocomplete="FALSE"/>
+				<div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="national_code_blur">شماره ملی باید 10 رقم باشد</span></div>
+			</div>
+			<div>
 				<label class="text-gray-700 text-l font-bold mb-2 text-none" for="phonenumber">شماره همراه: </label><span class="text-red-700">*</span>
 				<input class="phonenumber ml-12 my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="phonenumber" name="phonenumber" maxlength="15" autocomplete="FALSE"/>
 				<div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="phonenumber_blur">شماره همراه باید حداقل 11 رقم باشد</span></div>
@@ -114,6 +119,7 @@
 				$("#submit").prop('disabled', false);
 			}
 		});
+
 		$("#phonenumber").keypress(function(e){
 			let key = e.which;
 			// alert(key);
@@ -126,7 +132,15 @@
 				$("#submit").prop('disabled', false);
 			}
 		});
-		
+
+		$("#password_confirm").keypress(function(){
+			let valueP = $("#password").val();
+			let valuePC = $("#password_confirm").val();
+			if(!(valuePC = valueP)){
+				alert("hoy!");
+			}
+		});
+
 		$("#submit2").on('click' , function(){
         var firstname = $("#firstname").val();
 		var lastname = $("#lastname").val();
