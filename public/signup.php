@@ -109,6 +109,7 @@
 				$("#submit").prop('disabled', false);
 			}
 		});
+		
 		$("#phonenumber").blur(function(){
 			let value = $("#phonenumber").val();
 			if(value.length < 11){
