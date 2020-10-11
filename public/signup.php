@@ -137,8 +137,28 @@
 			let valueP = $("#password").val();
 			let valuePC = $("#password_confirm").val();
 			if(!(valuePC = valueP)){
-				alert("hoy!");
+				
 			}
+		});
+
+		$("#national_code").blur(function(){
+			let valueNC = $("#national_code").val();
+			if(valueNC.length < 10){
+				$("#national_code_blur").fadeIn();
+				$("#submit").prop('disabled', true);
+			}else{
+				$("#national_code_blur").fadeOut();
+				$("#submit").prop('disabled', false);
+			}
+		});
+
+		$("#national_code").keypress(function(e){
+			let valueNC = $("#national_code").val();
+			if(valueNC.length == 9){
+				$("#national_code_blur").fadeOut();
+				$("#submit").prop('disabled', false);
+			}
+
 		});
 
 		$("#submit2").on('click' , function(){
