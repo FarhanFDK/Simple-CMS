@@ -15,6 +15,15 @@
         ?>
     </div>
     <div class="menu">
+    <!-- 
+        <a class='text-gray-600 my-12 mx-4 menu-button' href="">صفحه اصلی</a> 
+        <a class='text-gray-600 my-12 mx-4 menu-button' href="">ورود</a>
+        <a class='text-gray-600 my-12 mx-4 menu-button' href="">ثبت نام</a>
+        <a class='text-gray-600 my-12 mx-4 menu-button' href="">ارتباط با ما</a>
+        <a class='text-gray-600 my-12 mx-4 menu-button' href="">درباره ما</a>
+        <a class='text-gray-600 my-12 mx-4 menu-button' href="">فروشگاه</a>
+        <a class='text-gray-600 my-12 mx-4 menu-button' href=""></a>
+    -->
         <?php
             $menu = NEW MENU();
             $menu->host_name = 'localhost';

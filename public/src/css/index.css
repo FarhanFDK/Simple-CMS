@@ -115,3 +115,11 @@ input:checked[type="checkbox"]:before{
 .phonenumber{
     font-family: yekan;
 }
+
+.img-telegram{
+    transition: 1s;
+}
+.img-telegram:hover{
+    transition: 1s;
+    transform: rotate(360deg);
+}
