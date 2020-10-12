@@ -39,13 +39,13 @@
         </div>
         <div class="text-center">
             <a href="" title="" style="width: 30px;height:30px">
-                <img aria-hidden="true" src="src/images/icons/telegram.png" class="img-telegram inline" style="width:30px;height:30px;" />
+                <img aria-hidden="true" src="src/images/icons/telegram.png" class="img-social-networks inline" style="width:30px;height:30px;" />
             </a>
             <a href="" title="" style="width: 30px;height:30px">
-                <img aria-hidden="true" src="src/images/icons/instagram.png" class="img-telegram inline" style="width:30px;height:30px;" />
+                <img aria-hidden="true" src="src/images/icons/instagram.png" class="img-social-networks inline" style="width:30px;height:30px;" />
             </a>
             <a href="" title="" style="width: 30px;height:30px">
-                <img aria-hidden="true" src="src/images/icons/whatsapp.png" class="img-telegram inline" style="width:32px;height:32px;" />
+                <img aria-hidden="true" src="src/images/icons/whatsapp.png" class="img-social-networks inline" style="width:32px;height:32px;" />
             </a>
         </div>
         <div class="text-center">

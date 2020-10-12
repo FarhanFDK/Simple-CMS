@@ -116,10 +116,10 @@ input:checked[type="checkbox"]:before{
     font-family: yekan;
 }
 
-.img-telegram{
+.img-social-networks{
     transition: 1s;
 }
-.img-telegram:hover{
+.img-social-networks:hover{
     transition: 1s;
     transform: rotate(360deg);
 }
