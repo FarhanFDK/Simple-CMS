@@ -34,7 +34,7 @@
 
     $("#national_code").keydown(function(e){
         let key = e.which;
-        if(!(key < 58 && key > 47)){
+        if(!(key < 58 && key > 47) && !(key > 36 && key < 41) && !(key == 116) && !(key == 115) && !(key == 9)){
             e.preventDefault();
         }
         var valueN = $("#national_code").val();

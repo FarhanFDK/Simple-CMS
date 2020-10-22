@@ -1,4 +1,16 @@
 <header class="header">
+    <a href="" class="cursor">
+    <p unselectable="on" class="float-right mr-4 mt-4 unselectable" style="position:relative;">
+        <span class="dot-number" style="position:absolute;">
+            <span unselectable="on" style="color:white;margin-right:1px;">
+                <?php echo strlen(2); ?>
+            </span>
+        </span>
+        <span class="dot">
+            <i class='fas fa-shopping-basket mt-2 mr-2' style="font-size: 30px;color:white;"></i>
+        </span>
+    </p>
+    </a>
     <div class="ad text-center">
         <?php
             # AD TOP OF THE HEADER
@@ -13,6 +25,7 @@
             $ad->column3 = 'ad_picture';
             $ad->connect();
         ?>
+        
     </div>
     <div class="menu">
     <!-- 
