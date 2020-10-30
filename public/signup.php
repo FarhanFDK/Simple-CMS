@@ -2,7 +2,7 @@
 <?php require "src/includes/head.php"; ?>
 <?php require "src/includes/header.php"; ?>
 <div class="middle mtop">
-    <div>
+  <div>
 		<form class="text-center">
 			<div>
 				<label class="mr-2 text-gray-700 text-l font-bold mb-2 text-none" for="firstname">نام: </label><span class="text-red-700">*</span>
@@ -38,7 +38,7 @@
 				<div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="password_blur">رمزعبور همخوانی ندارد</span></div>
 			</div>
 			<div>
-				<div>		
+				<div>
 					<input class="ml-2 cursor-pointer" type="checkbox" id="privacy_policy" name="priacy_policy" />
 					<label class="text-gray-700 text-l font-bold mb-2" for="privacy_policy"><a class="text-blue-400" href="policy.php" title="" target="_blank">شرایط</a> را خوانده و قبول دارم</label><span class="text-red-700">*</span>
 				</div>
@@ -138,7 +138,7 @@
 			let valueP = $("#password").val();
 			let valuePC = $("#password_confirm").val();
 			if(!(valuePC = valueP)){
-				
+
 			}
 		});
 

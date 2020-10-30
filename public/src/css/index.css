@@ -1,8 +1,8 @@
 @font-face{
     src: url('../fonts/yekkan/Yekan.ttf');
-    font-family: yekan;
+    font-family: Yekan;
+    /* Yekan font */
 }
-
 
 @font-face {
     font-family: Samim;
@@ -11,6 +11,7 @@
          url('../fonts/samim/Samim.woff') format('woff'),
          url('../fonts/samim/Samim.ttf') format('truetype');
     font-weight: normal;
+    /* Samim font */
 }
 
 
@@ -18,7 +19,7 @@
     src: url();
     font-family: example1;
 }
-  
+
 
 body{
     direction: rtl;
@@ -143,8 +144,12 @@ input:checked[type="checkbox"]:before{
 }
 
 .unselectable{
-    -webkit-user-select: none;       
+    -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+input{
+    transition:  1s;
 }

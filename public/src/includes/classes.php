@@ -7,29 +7,29 @@
             if ($this->handle = opendir($this->directory)) {
                 while (false !== ($this->entry = readdir($this->handle))) {
                     if ($this->entry != "." && $this->entry != "..") {
-            
+
                         echo "$this->entry\n";
                     }
                 }
                 closedir($this->handle);
             }
-        }  
+        }
     }
 
-    
+
     class DIR_CREATOR{
         public $directory;
         function connect(){
             if(!is_dir($this->directory)){
-            mkdir($this->directory);
+                mkdir($this->directory);
             }
         }
     }
 
 
     class AD{
-        public $host_name;   // SET MANUALLY 
-        public $user_name;   // SET MANUALLY 
+        public $host_name;   // SET MANUALLY
+        public $user_name;   // SET MANUALLY
         public $user_pass;   // SET MANUALLY
         public $db_name;     // SET MANUALLY
         public $column;      // SET MANUALLY
@@ -70,9 +70,9 @@
         }
     }
 
-    
+
     class VISITS{
-        public $host_name;   // SET MANUALLY 
+        public $host_name;   // SET MANUALLY
         public $user_name;   // SET MANUALLY
         public $user_pass;   // SET MANUALLY
         public $db_name;     // SET MANUALLY
@@ -143,7 +143,7 @@
             $this->client  = @$_SERVER['HTTP_CLIENT_IP'];
             $this->forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
             $this->remote  = $_SERVER['REMOTE_ADDR'];
-    
+
             if(filter_var($this->client, FILTER_VALIDATE_IP))
             {
                 $this->ip = $this->client;
@@ -156,7 +156,7 @@
             {
                 $this->ip = $this->remote;
             }
-    
+
             return $this->ip;
         }
     }
