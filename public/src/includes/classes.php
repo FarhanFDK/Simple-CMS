@@ -197,9 +197,9 @@
             $this->query = "INSERT INTO `$this->table_name`(email , password , phonenumber) VALUES('$this->email' , '$this->password' , '$this->phonenumber')";
             $this->result = mysqli_query($this->connection , $this->query);
             if($this->result){
-                exit("fuck you!");
+                exit("");
             }else{
-                exit("fuck you fuck you!");
+                exit("");
             }
         }
     }
