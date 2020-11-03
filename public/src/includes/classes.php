@@ -128,7 +128,7 @@
             while($this->row = mysqli_fetch_assoc($this->result)){
                 $this->title = $this->row[$this->column_title];
                 $this->href = $this->row[$this->column_href];
-                echo "<a class='text-gray-600 my-12 mx-4 menu-button' href=$this->href title=$this->title>$this->title</a> ";
+                echo "<a class='text-gray-600 my-12 mx-4 menu-button unselectable' href=$this->href title=$this->title>$this->title</a> ";
             }
         }
     }

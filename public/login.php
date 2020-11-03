@@ -3,7 +3,7 @@
     if(isset($_POST['submit'])){
         $national_code = $_POST['national_code_final_value'];
         $password = $_POST['password_final_value'];
-        if(strlen($national_code) != 10 && (strlen($password) > 32 && strlen($password) < 8)){
+        if(strlen($national_code) != 10){
             exit("<p style='color:red;'>شماره ملی باید 10 رقم باشد</p>");
         }else{
             class LOGIN{
@@ -22,6 +22,8 @@
                 private $hash;
                 private $salt;
                 private $hash_salt;
+                private $cookieName;
+                private $cookieValue;
                 public $national_code;
                 public $password;
                 private function connect(){
@@ -41,7 +43,7 @@
                     $this->password = crypt($this->hash_salt , $this->password);
                     $this->query = "SELECT national_code, password FROM `$table_name` WHERE national_code = `$this->national_code` AND password = `$this->password`";
                     $this->result = mysqli_query($this->connection , $this->query);
-                    if(mysqli_num_rows($result) = 1){
+                    if(mysqli_num_rows($this->result) == 1){
                         ob_start(); // end it here
                         setcookie('');
                         ob_end_flush();

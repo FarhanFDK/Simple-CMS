@@ -33,10 +33,10 @@ header{
     top: 0;
     right: 0;
     left: 0;
+    height: 130px;
+    width: 100%;
     position: absolute;
     background-color: rgb(17,15,9);
-    width: 100%;
-    height: 130px;
 }
 
 
@@ -49,11 +49,11 @@ footer{
     bottom: 0;
     right: 0;
     left: 0;
-    position: relative;
-    background-color: rgb(17,15,9);
+    font-family: yekan;
     width: 100%;
     height: 40rem;
-    font-family: yekan;
+    position: relative;
+    background-color: rgb(17,15,9);
 }
 
 
@@ -79,13 +79,13 @@ input[type="checkbox"]{
 
 
 input[type="checkbox"]:before{
-    transition: 0.5s;
-    content: '';
-    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    transition: 0.5s;
+    content: '';
+    position: absolute;
     border: 1px solid #262626;
     box-sizing: border-box;
 }
@@ -150,6 +150,30 @@ input:checked[type="checkbox"]:before{
     user-select: none;
 }
 
-input{
-    transition:  1s;
+.email-transition , .phonenumber-transition{
+    -moz-transition: 1s;
+    -webkit-transition: 1s;
+    -o-transition: 1s;
+    -ms-transition: 1s;
+    transition: 1s;
+}
+.email-transition:hover , .phonenumber-transition:hover{
+    -moz-transition: 1s;
+    -webkit-transition: 1s;
+    -o-transition: 1s;
+    -ms-transition: 1s;
+    transition: 1s;
+    margin-right: 5px;
+}
+
+.line-password{
+    width: 7rem;
+    height: 0.5rem;
+    text-align: center;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    background: white;
 }
