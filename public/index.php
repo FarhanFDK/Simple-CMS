@@ -1,11 +1,15 @@
+<?php $title = "شرکت افراگسترنوین-صفحه اصلی" ?>
+<?php
+    class Content{
+        public $h;
+    }
+?>
 <?php require "src/includes/classes.php"; ?>
 <?php require "src/includes/head.php"; ?>
 <?php require "src/includes/header.php"; ?>
 <div class="middle mtop">
     <div>
-        <?php
         
-        ?>
     </div>
 </div>
 

@@ -1,5 +1,5 @@
 class Redirect{
-    redirect(link){
+    constructor(link){
         location.href = link;
     }
 }

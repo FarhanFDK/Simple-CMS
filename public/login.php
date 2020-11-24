@@ -1,3 +1,9 @@
+<?php $title = "شرکت افراگسترنوین-ورود"; ?>
+<?php
+    class Content{
+          public $h;
+    }
+?>
 <?php require "src/includes/classes.php"; ?>
 <?php
     if(isset($_POST['submit'])){
@@ -6,50 +12,7 @@
         if(strlen($national_code) != 10){
             exit("<p style='color:red;'>شماره ملی باید 10 رقم باشد</p>");
         }else{
-            class LOGIN{
-                private $host_name;
-                private $user_name;
-                private $user_pass;
-                private $db_name;
-                private $connection;
-                private $login_date;
-                private $ipF;
-                private $ip;
-                private $table_name;
-                private $column_name;
-                private $query;
-                private $result;
-                private $hash;
-                private $salt;
-                private $hash_salt;
-                private $cookieName;
-                private $cookieValue;
-                public $national_code;
-                public $password;
-                private function connect(){
-                    require "src/includes/jdf.php";
-                    $this->host_name = 'localhost';
-                    $this->user_name = 'root';
-                    $this->user_pass = '';
-                    $this->db_name = 'users';
-                    $this->table_name = 'users_information';
-                    $this->connection = mysqli_connect($this->host_name , $this->user_name , $this->user_pass , $this->db_name);
-                    $this->login_date = jdate('Y/m/d g:i:a a' , '' , '' , 'Asia/Tehran' , 'en');
-                    $this->ipF = NEW IP();
-                    $this->ip = $this->ipF->getUserIP();
-                    $this->hash = "$5$";
-                    $this->salt = "sixteencharacter";
-                    $this->hash_salt = $this->hash . $this->salt;
-                    $this->password = crypt($this->hash_salt , $this->password);
-                    $this->query = "SELECT national_code, password FROM `$table_name` WHERE national_code = `$this->national_code` AND password = `$this->password`";
-                    $this->result = mysqli_query($this->connection , $this->query);
-                    if(mysqli_num_rows($this->result) == 1){
-                        ob_start(); // end it here
-                        setcookie('');
-                        ob_end_flush();
-                    }
-                }
-            }
+
         }
     }
 ?>
