@@ -256,6 +256,7 @@
         private $subject;
         private $message;
         private $headers;
+        private $url;
         public $firstname;
         public $signup_system_os;
         public $lastname;
@@ -264,115 +265,119 @@
         public $email;
         public $password;
         public $email_ad;
+        public $secret;
         private function connect(){
             // use PHPMailer\PHPMailer\PHPMailer;
             // use PHPMailer\PHPMailer\SMTP;
             // use PHPMailer\PHPMailer\Exception;
-            require "vendor/phpmailer/autoload.php";
-            require "src/includes/jdf.php";
-            $this->signup_date = jdate('Y/m/d g:i:a a' , '' , '' , 'Asia/Tehran' , 'en');
-            $this->host_name = 'localhost';
-            $this->user_name = 'root';
-            $this->user_pass = '';
-            $this->db_name = 'users';
-            $this->table_name = 'users_information';
-            $this->connection = mysqli_connect($this->host_name , $this->user_name , $this->user_pass , $this->db_name);
-            if($this->connection == true){
-                $this->national_code = mysqli_real_escape_string($this->connection , $this->national_code);
-                $this->phonenumber = mysqli_real_escape_string($this->connection , $this->phonenumber);
-                $this->email = mysqli_real_escape_string($this->connection , $this->email);
-                $this->email = strtolower($this->email);
-                $this->query_confirm = "SELECT * FROM `$this->table_name` WHERE national_code = '$this->national_code' OR phonenumber = '$this->phonenumber' OR email = '$this->email'";
-                $this->result_confirm = mysqli_query($this->connection , $this->query_confirm);
-                if(mysqli_num_rows($this->result_confirm) > -1){
-                    $this->signup_ip_pre = new IP();
-                    $this->signup_ip = $this->signup_ip_pre->getUserIP();
-                    $this->firstname = mysqli_real_escape_string($this->connection , $this->firstname);
-                    $this->lastname = mysqli_real_escape_string($this->connection , $this->lastname);
-                    $this->password = mysqli_real_escape_string($this->connection , $this->password);
-                    $this->email_ad = mysqli_real_escape_string($this->connection , $this->email_ad);
-                    $this->hash_F = '$5$';
-                    $this->hash_F_confirm = '$5$';
-                    $this->salt = 'sixteencharacter';
-                    $this->salt_confirm = 'sixteencharacter';
-                    $this->hash_salt = $this->hash_F . $this->salt;
-                    $this->hash_salt_confirm = $this->hash_F_confirm . $this->salt_confirm;
-                    $this->password = crypt($this->password , $this->hash_salt);
-                    $this->random_number_email = rand(121030 , 989090);
-                    $this->cookie_login = crypt($this->national_code . $this->phonenumber , $this->hash_salt_confirm);
-                    //$this->cookie_login2 = crypt($this->national_code . $this->password , $this->hash_salt_confirm);
-                    $this->query = "INSERT INTO `$this->table_name`(`id`, `signup_date`, `signup_os`, `signup_ip`, `firstname`, `lastname`, `national_code`, `phonenumber`, `email`, `password`, `cookie_login`, `email_ad`, `post_code`, `profile_photo`, `login_date`, `login_os`, `login_ip`)";
-                    $this->query .= "VALUES(NULL , '$this->signup_date' , '$this->signup_system_os' , '$this->signup_ip' , '$this->firstname' , '$this->lastname' , '$this->national_code' , '$this->phonenumber' , '$this->email' , '$this->password' , '$this->cookie_login' , '$this->email_ad' , '' , '' , '' , '' , '')";
-                    $this->result = mysqli_query($this->connection , $this->query);
-                    if($this->result){
-                        // $_SESSION['firstname'] = $this->firstname;
-                        // $_SESSION['lastname'] = $this->lastname;
-                        // $_SESSION['national_code'] = $this->national_code;
-                        // $_SESSION['email'] = $this->email;
-                        // $_SESSION['email_ad'] = $this->email_ad;
-                        // $_SESSION['phonenumber'] = $this->phonenumber;
-                        $this->subject = "تایید ایمیل";
-                        $this->message = "
-                        <!DOCTYPE html>
-                        <html>
-                            <head>
-                                <meta charset='UTF-8'>
-                                <title>ایمیل خود را تایید کنید</title>
-                                <style>
-                                    @font-face {
-                                        font-family: Samim;
-                                        src: url('../fonts/samim/Samim.eot');
-                                        src: url('../fonts/samim/Samim.eot') format('embedded-opentype'),
-                                             url('../fonts/samim/Samim.woff') format('woff'),
-                                             url('../fonts/samim/Samim.ttf') format('truetype');
-                                        font-weight: normal;
-                                        /* Samim font */
-                                    }
-
-                                    body{
-                                        font-family:Samim;
-                                        text-align:center;
-                                        direction:rtl;
-                                        font-size:20px;
-                                    }
-
-                                    #en{
-                                        direction:ltr;
-                                        font-family:Arial !important;
-                                    }
-                                </style>
-                            </head>
-                            <body>
-                                <div>
-
-                                </div>
-                            </body>
-                        </html>
-                        ";
-
-                        // Always set content-type when sending HTML email
-                        $headers = "MIME-Version: 1.0" . "\r\n";
-                        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-
-                        // More headers
-                        $headers .= 'From: <info@afragostarnovin.ir>' . "\r\n";
-                        $headers .= 'Cc: ' . $this->email . "\r\n";
-
-                        mail($this->email,$this->subject,$this->message,$this->headers);
-                        // ob_start();
-                        // // setcookie($this->cookie_login , $this->cookie_login2 , time() + 86400 , '/' , 'localhost' , false , true);
-                        // ob_end_flush();
-                        // mail("$this->email" , "شرکت افراگسترنوین");
-                        // header("Location: verify-phone.php");
+            // require "vendor/phpmailer/autoload.php";
+            $this->url = "https://https://www.google.com/recaptcha/api/siteverify";
+            if($url){
+                require "src/includes/jdf.php";
+                $this->signup_date = jdate('Y/m/d g:i:a a' , '' , '' , 'Asia/Tehran' , 'en');
+                $this->host_name = 'localhost';
+                $this->user_name = 'root';
+                $this->user_pass = '';
+                $this->db_name = 'users';
+                $this->table_name = 'users_information';
+                $this->connection = mysqli_connect($this->host_name , $this->user_name , $this->user_pass , $this->db_name);
+                if($this->connection == true){
+                    $this->national_code = mysqli_real_escape_string($this->connection , $this->national_code);
+                    $this->phonenumber = mysqli_real_escape_string($this->connection , $this->phonenumber);
+                    $this->email = mysqli_real_escape_string($this->connection , $this->email);
+                    $this->email = strtolower($this->email);
+                    $this->query_confirm = "SELECT * FROM `$this->table_name` WHERE national_code = '$this->national_code' OR phonenumber = '$this->phonenumber' OR email = '$this->email'";
+                    $this->result_confirm = mysqli_query($this->connection , $this->query_confirm);
+                    if(mysqli_num_rows($this->result_confirm) > -1){
+                        $this->signup_ip_pre = new IP();
+                        $this->signup_ip = $this->signup_ip_pre->getUserIP();
+                        $this->firstname = mysqli_real_escape_string($this->connection , $this->firstname);
+                        $this->lastname = mysqli_real_escape_string($this->connection , $this->lastname);
+                        $this->password = mysqli_real_escape_string($this->connection , $this->password);
+                        $this->email_ad = mysqli_real_escape_string($this->connection , $this->email_ad);
+                        $this->hash_F = '$5$';
+                        $this->hash_F_confirm = '$5$';
+                        $this->salt = 'sixteencharacter';
+                        $this->salt_confirm = 'sixteencharacter';
+                        $this->hash_salt = $this->hash_F . $this->salt;
+                        $this->hash_salt_confirm = $this->hash_F_confirm . $this->salt_confirm;
+                        $this->password = crypt($this->password , $this->hash_salt);
+                        $this->random_number_email = rand(121030 , 989090);
+                        $this->cookie_login = crypt($this->national_code . $this->phonenumber , $this->hash_salt_confirm);
+                        //$this->cookie_login2 = crypt($this->national_code . $this->password , $this->hash_salt_confirm);
+                        $this->query = "INSERT INTO `$this->table_name`(`id`, `signup_date`, `signup_os`, `signup_ip`, `firstname`, `lastname`, `national_code`, `phonenumber`, `email`, `password`, `cookie_login`, `email_ad`, `post_code`, `profile_photo`, `login_date`, `login_os`, `login_ip`)";
+                        $this->query .= "VALUES(NULL , '$this->signup_date' , '$this->signup_system_os' , '$this->signup_ip' , '$this->firstname' , '$this->lastname' , '$this->national_code' , '$this->phonenumber' , '$this->email' , '$this->password' , '$this->cookie_login' , '$this->email_ad' , '' , '' , '' , '' , '')";
+                        $this->result = mysqli_query($this->connection , $this->query);
+                        if($this->result){
+                            // $_SESSION['firstname'] = $this->firstname;
+                            // $_SESSION['lastname'] = $this->lastname;
+                            // $_SESSION['national_code'] = $this->national_code;
+                            // $_SESSION['email'] = $this->email;
+                            // $_SESSION['email_ad'] = $this->email_ad;
+                            // $_SESSION['phonenumber'] = $this->phonenumber;
+                            $this->subject = "تایید ایمیل";
+                            $this->message = "
+                            <!DOCTYPE html>
+                            <html>
+                                <head>
+                                    <meta charset='UTF-8'>
+                                    <title>ایمیل خود را تایید کنید</title>
+                                    <style>
+                                        @font-face {
+                                            font-family: Samim;
+                                            src: url('../fonts/samim/Samim.eot');
+                                            src: url('../fonts/samim/Samim.eot') format('embedded-opentype'),
+                                                 url('../fonts/samim/Samim.woff') format('woff'),
+                                                 url('../fonts/samim/Samim.ttf') format('truetype');
+                                            font-weight: normal;
+                                            /* Samim font */
+                                        }
+    
+                                        body{
+                                            font-family:Samim;
+                                            text-align:center;
+                                            direction:rtl;
+                                            font-size:20px;
+                                        }
+    
+                                        #en{
+                                            direction:ltr;
+                                            font-family:Arial !important;
+                                        }
+                                    </style>
+                                </head>
+                                <body>
+                                    <div>
+    
+                                    </div>
+                                </body>
+                            </html>
+                            ";
+    
+                            // Always set content-type when sending HTML email
+                            $this->headers = "MIME-Version: 1.0" . "\r\n";
+                            $this->headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+    
+                            // More headers
+                            $this->headers .= 'From: <info@afragostarnovin.ir>' . "\r\n";
+                            $this->headers .= 'Cc: ' . $this->email . "\r\n";
+    
+                            mail($this->email,$this->subject,$this->message,$this->headers);
+                            // ob_start();
+                            // // setcookie($this->cookie_login , $this->cookie_login2 , time() + 86400 , '/' , 'localhost' , false , true);
+                            // ob_end_flush();
+                            // mail("$this->email" , "شرکت افراگسترنوین");
+                            // header("Location: verify-phone.php");
+                        }else{
+                            exit("<p class='text-red-700 text-none mb-2 text-xl font-bold'>ارتباط با سرور با مشکل مواجه شد لطفا بعدا تلاش نمایید</p>");
+                        }
                     }else{
-                        exit("<p class='text-red-700 text-none mb-2 text-xl font-bold'>ارتباط با سرور با مشکل مواجه شد لطفا بعدا تلاش نمایید</p>");
+                        exit("<p class='text-red-700 text-none mb-2 text-xl font-bold'>شما قبلا ثبت نام کرده اید</p>");
                     }
+    
                 }else{
-                    exit("<p class='text-red-700 text-none mb-2 text-xl font-bold'>شما قبلا ثبت نام کرده اید</p>");
+                    exit("<p class='text-red-700 text-none mb-2 text-xl font-bold'>ارتباط با سرور با مشکل مواجه شد</p>");
                 }
-
-            }else{
-                exit("<p class='text-red-700 text-none mb-2 text-xl font-bold'>ارتباط با سرور با مشکل مواجه شد</p>");
             }
 
         }

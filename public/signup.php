@@ -75,6 +75,7 @@
         if($password_confirm == $password){
             ++$grade;
         }
+
         if(strlen($password) > 7 && strlen($password) < 33){
             ++$grade;
         }
@@ -86,6 +87,7 @@
         if(preg_match("/[A-Z]/" , $password)){
             ++$grade;
         }
+
         if(preg_match("~[0-9]+~" , $password)){
             ++$grade;
         }
@@ -112,6 +114,8 @@
             $connect_signup->password = $password;
             $connect_signup->email_ad = $request_for_email;
             $connect_signup->signup_system_os = $signup_os;
+            $connect_signup->secret = $_POST['secret'];
+            
             $reflector = new ReflectionObject($connect_signup);
             $method = $reflector->getMethod('connect');
             $method->setAccessible(true);
@@ -126,86 +130,89 @@
 ?>
 <div class="scroll scroll-width-thin"></div>
 <div class="middle mtop">
-  <div>
-		<form class="text-center unselectable">
-			<div>
-        <div>لطفا اطلاعات خود را جهت ثبت نام در سایت شرکت افراگستر نوین وارد نموده و گزینه ثبت نام را کلیک کنید</div>
-				<label class="mr-2 text-gray-700 text-l font-bold mb-2 text-none" for="firstname">نام: </label><span class="text-red-700">*</span>
-				<input class="firstname my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="firstname" name="firstname" maxlength="25" placeholder="علی" autocomplete="FALSE"/>
-				<div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="firstname_blur">نام باید بین 3 تا 25 کاراکتر باشد</span></div>
-        <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="firstname_blur_lang">لطفا به فارسی تایپ کنید</span></div>
-      </div>
-			<div>
-				<label class="text-gray-700 text-l font-bold mb-2 text-none" for="lastname">نام خانوادگی: </label><span class="text-red-700">*</span>
-				<input class="lastname ml-12 my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="lastname" name="lastname" maxlength="30" placeholder="امیری" autocomplete="FALSE"/>
-				<div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="lastname_blur">نام خانوادگی باید بین 4 تا 30 کاراکتر باشد</span></div>
-        <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="lastname_blur_lang">لطفا به فارسی تایپ کنید</span></div>
-      </div>
-			<div>
-				<label class="mr-4 text-gray-700 text-l font-bold mb-2 text-none" for="national_code">شماره ملی: </label><span class="text-red-700">*</span>
-				<input class="ml-12 my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="0123456789" type="text" id="national_code" name="national_code" maxlength="10" style="direction:ltr;font-family:yekan;" autocomplete="FALSE"/>
-				<div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="national_code_blur">شماره ملی باید 10 رقم باشد</span></div>
-        <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="national_code_correct">لطفا به عدد لاتین تایپ کنید</span></div>
-			</div>
-      <div id="scroller_password"></div>
-			<div>
-				<label class="mr-1 text-gray-700 text-l font-bold mb-2 text-none" for="phonenumber">شماره همراه: </label><span class="text-red-700">*</span>
-				<input class="phonenumber ml-12 my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="09123456789" type="text" id="phonenumber" name="phonenumber" style="direction:ltr;font-family:yekan;" maxlength="11" maxlength="15" autocomplete="FALSE"/>
-				<div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="phonenumber_blur">شماره همراه باید 11 رقم باشد</span></div>
-        <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="phonenumber_correct">لطفا شماره تلفن را درست وارد کنید</span></div>
-        <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="phonenumber_correct_number">لطفا به عدد لاتین تایپ کنید</span></div>
-      </div>
-			<div>
-				<label class="text-gray-700 text-l font-bold mb-2 text-none" for="email">ایمیل: </label><span class="text-red-700">*</span>
-				<input class="my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" id="email" name="email" placeholder="Ali.Amiri@example.com" style="direction:ltr;" maxlength="40" autocomplete="FALSE"/>
-        <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="email_blur">ایمیل باید بین 9 تا 40 کاراکتر باشد</span></div>
-        <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="email_correct">لطفا ایمیل را درست وارد کنید</span></div>
-        <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="email_correct_type">فقط اعداد،حروف لاتین،نقطه و کاراکتر @ مجاز است</span></div>
-      </div>
-			<div>
-				<label class="text-gray-700 text-l font-bold mb-2" for="password">رمز عبور: </label><span class="text-red-700">*</span>
-				<input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="ml-4 my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" id="password" name="password" maxlength="32" autocomplete="FALSE"/>
-			</div>
-			<div>
-				<label class="text-gray-700 text-l font-bold mb-2" for="password_confirm">تایید رمز عبور: </label><span class="text-red-700">*</span>
-				<input class="ml-12 my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" id="password_confirm" name="password_confirm" maxlength="32" autocomplete="FALSE"/>
-				<div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="password_blur">رمزعبور همخوانی ندارد</span></div>
-			</div>
-      <div style="direction:ltr;">
-          <meter class="meter meter-red" max="100" id="strength" value="0"></meter>
-      </div>
-      <div class="hidden mb-8" id="validation_password">
-          <div>رعایت موارد زیر در مورد رمزعبور الزامی است</div>
-          <div id="A_to_Z" style="color:red;">دارای حداقل یک حرف بزرگ</div>
-          <div id="a_to_z" style="color:red;">دارای حداقل یک حرف کوچک</div>
-          <div id="number8" style="color:red;">دارای حداقل یک عدد</div>
-          <div id="char8" style="color:red;">دارای حداقل هشت کاراکتر</div>
-          <div id="special_char8" style="color:red;">دارای حداقل یک کاراکتر خاص</div>
-      </div>
-      <div>
-				<div>
-					<input class="ml-2 cursor-pointer" type="checkbox" id="privacy_policy" name="privacy_policy" />
-					<label class="text-gray-700 text-l font-bold mb-2" for="privacy_policy"><a class="text-blue-400" href="policy.php" title="" target="_blank">شرایط</a> را خوانده و قبول دارم</label><span class="text-red-700">*</span>
-				</div>
-				<div>
-					<input class="ml-2 cursor-pointer" type="checkbox" id="requests" name="requests" />
-					<label class="text-gray-700 text-l font-bold mb-2" for="requests">مایل به دریافت ایمیل هستم</label>
-				</div>
-			</div>
-      <div id="form_is_not_correct" class="hidden mt-10 text-red-700 text-l font-bold mb-2 text-none">
-          لطفا فیلدها را کامل کنید
-      </div>
-      <div id="response_area">
+    <div>
+        <form class="text-center unselectable">
+            <div>
+                <div>لطفا اطلاعات خود را جهت ثبت نام در سایت شرکت افراگستر نوین وارد نموده و گزینه ثبت نام را کلیک کنید</div>
+                    <label class="mr-2 text-gray-700 text-l font-bold mb-2 text-none" for="firstname">نام: </label><span class="text-red-700">*</span>
+                    <input class="firstname my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="firstname" name="firstname" maxlength="25" placeholder="علی" autocomplete="FALSE"/>
+                    <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="firstname_blur">نام باید بین 3 تا 25 کاراکتر باشد</span></div>
+                    <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="firstname_blur_lang">لطفا به فارسی تایپ کنید</span></div>
+                </div>
+                <div>
+                    <label class="text-gray-700 text-l font-bold mb-2 text-none" for="lastname">نام خانوادگی: </label><span class="text-red-700">*</span>
+                    <input class="lastname ml-12 my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="lastname" name="lastname" maxlength="30" placeholder="امیری" autocomplete="FALSE"/>
+                    <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="lastname_blur">نام خانوادگی باید بین 4 تا 30 کاراکتر باشد</span></div>
+                    <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="lastname_blur_lang">لطفا به فارسی تایپ کنید</span></div>
+                </div>
+                <div>
+                    <label class="mr-4 text-gray-700 text-l font-bold mb-2 text-none" for="national_code">شماره ملی: </label><span class="text-red-700">*</span>
+                    <input class="ml-12 my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="0123456789" type="text" id="national_code" name="national_code" maxlength="10" style="direction:ltr;font-family:yekan;" autocomplete="FALSE"/>
+                    <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="national_code_blur">شماره ملی باید 10 رقم باشد</span></div>
+                    <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="national_code_correct">لطفا به عدد لاتین تایپ کنید</span></div>
+			    </div>
+                <div id="scroller_password"></div>
+                <div>
+                    <label class="mr-1 text-gray-700 text-l font-bold mb-2 text-none" for="phonenumber">شماره همراه: </label><span class="text-red-700">*</span>
+                    <input class="phonenumber ml-12 my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="09123456789" type="text" id="phonenumber" name="phonenumber" style="direction:ltr;font-family:yekan;" maxlength="11" maxlength="15" autocomplete="FALSE"/>
+                    <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="phonenumber_blur">شماره همراه باید 11 رقم باشد</span></div>
+                    <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="phonenumber_correct">لطفا شماره تلفن را درست وارد کنید</span></div>
+                    <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="phonenumber_correct_number">لطفا به عدد لاتین تایپ کنید</span></div>
+                </div>
+			    <div>
+                    <label class="text-gray-700 text-l font-bold mb-2 text-none" for="email">ایمیل: </label><span class="text-red-700">*</span>
+                    <input class="my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" id="email" name="email" placeholder="Ali.Amiri@example.com" style="direction:ltr;" maxlength="40" autocomplete="FALSE"/>
+                    <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="email_blur">ایمیل باید بین 9 تا 40 کاراکتر باشد</span></div>
+                    <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="email_correct">لطفا ایمیل را درست وارد کنید</span></div>
+                    <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="email_correct_type">فقط اعداد،حروف لاتین،نقطه و کاراکتر @ مجاز است</span></div>
+                </div>
+			    <div>
+                    <label class="text-gray-700 text-l font-bold mb-2" for="password">رمز عبور: </label><span class="text-red-700">*</span>
+                    <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="ml-4 my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" id="password" name="password" maxlength="32" autocomplete="FALSE"/>
+			    </div>
+			    <div>
+                    <label class="text-gray-700 text-l font-bold mb-2" for="password_confirm">تایید رمز عبور: </label><span class="text-red-700">*</span>
+                    <input class="ml-12 my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" id="password_confirm" name="password_confirm" maxlength="32" autocomplete="FALSE"/>
+                    <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="password_blur">رمزعبور همخوانی ندارد</span></div>
+			    </div>
+                <div style="direction:ltr;">
+                    <meter class="meter meter-red" max="100" id="strength" value="0"></meter>
+                </div>
+                <div class="hidden mb-8" id="validation_password">
+                    <div>رعایت موارد زیر در مورد رمزعبور الزامی است</div>
+                    <div id="A_to_Z" style="color:red;">دارای حداقل یک حرف بزرگ</div>
+                    <div id="a_to_z" style="color:red;">دارای حداقل یک حرف کوچک</div>
+                    <div id="number8" style="color:red;">دارای حداقل یک عدد</div>
+                    <div id="char8" style="color:red;">دارای حداقل هشت کاراکتر</div>
+                    <div id="special_char8" style="color:red;">دارای حداقل یک کاراکتر خاص</div>
+                </div>
+                <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                <div class="g-recaptcha" id="recaptcha" data-sitekey="6LckgPAZAAAAAOx7EZxBTqJhB_Nw-g7b3xOL7gGg"></div>
+                <!-- IMPORTANT! -->
+                <div>
+                    <div>
+                        <input class="ml-2 cursor-pointer" type="checkbox" id="privacy_policy" name="privacy_policy" />
+                        <label class="text-gray-700 text-l font-bold mb-2" for="privacy_policy"><a class="text-blue-400" href="policy.php" title="" target="_blank">شرایط</a> را خوانده و قبول دارم</label><span class="text-red-700">*</span>
+                    </div>
+                    <div>
+                        <input class="ml-2 cursor-pointer" type="checkbox" id="requests" name="requests" />
+                        <label class="text-gray-700 text-l font-bold mb-2" for="requests">مایل به دریافت ایمیل هستم</label>
+                    </div>
+                </div>
+                <div id="form_is_not_correct" class="hidden mt-10 text-red-700 text-l font-bold mb-2 text-none">
+                    لطفا فیلدها را کامل کنید
+                </div>
+                <div id="response_area" style="user-select:all !important;">
 
-      </div>
-			<div>
-				<button class="bg-red-700 hover:bg-red-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer my-2" type="button" id="submit" name="submit">ثبت نام</button>
-			</div>
-      <noscript class="text-red-700 text-l font-bold mb-2 text-none m-auto" language="javascript">
-        مرورگر شما از جاوااسکریپت استفاده نمیکند
-        <br>
-        لطفا برای جلوگیری از بروز مشکل از مرورگری که از جاوااسکریپت پشتیبانی میکند استفاده کنید
-      </noscript>
+                </div>
+                <div>
+                    <button class="bg-red-700 hover:bg-red-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer my-2" type="button" id="submit" name="submit">ثبت نام</button>
+                </div>
+                <noscript class="text-red-700 text-l font-bold mb-2 text-none m-auto" language="javascript">
+                    مرورگر شما از جاوااسکریپت استفاده نمیکند
+                    <br>
+                    لطفا برای جلوگیری از بروز مشکل از مرورگری که از جاوااسکریپت پشتیبانی میکند استفاده کنید
+                </noscript>
 		</form>
     </div>
 </div>
@@ -235,6 +242,7 @@
     let password_blur = document.getElementById("password_blur");
     let validation_password = document.getElementById("validation_password");
     let form_is_not_correct = document.getElementById("form_is_not_correct");
+    let recaptcha = document.getElementById("recaptcha");
     let pattern1 = /[a-z]+/;
     let pattern2 = /[A-Z]+/;
     let pattern3 = /[0-9]+/;
@@ -255,48 +263,7 @@
         }
 
     }
-  /*  document.body.onclick = function (e) {
-        var isRightMB;
-        e = e || window.event;
-        if ("which" in e) {
-            isRightMB = e.which == 3;
-        } // Gecko (Firefox), WebKit (Safari/Chrome) & Opera
-        else if("button" in e){
-            isRightMB = e.button == 2;
-        }else{
-            alert(isRightMB);
-        }  // IE, Opera
-    }
-    window.oncontextmenu = null;
-    var elements = document.getElementsByTagName("*");
-    for(var id = 0; id < elements.length; ++id) { elements[id].oncontextmenu = null; }*/
-//     (function() {
-//     document.onmousemove = handleMouseMove;
-//     function handleMouseMove(event) {
-//         var eventDoc, doc, body;
-//
-//         event = event || window.event; // IE-ism
-//
-//         // If pageX/Y aren't available and clientX/Y are,
-//         // calculate pageX/Y - logic taken from jQuery.
-//         // (This is to support old IE)
-//         if (event.pageX == null && event.clientX != null) {
-//             eventDoc = (event.target && event.target.ownerDocument) || document;
-//             doc = eventDoc.documentElement;
-//             body = eventDoc.body;
-//
-//             event.pageX = event.clientX +
-//               (doc && doc.scrollLeft || body && body.scrollLeft || 0) -
-//               (doc && doc.clientLeft || body && body.clientLeft || 0);
-//             event.pageY = event.clientY +
-//               (doc && doc.scrollTop  || body && body.scrollTop  || 0) -
-//               (doc && doc.clientTop  || body && body.clientTop  || 0 );
-//         }
-//
-//         // Use event.pageX / event.pageY here
-//         alert(event.pageX);
-//     }
-// })();
+
     firstname_selection.onkeyup = function (){
         let firstname_onkeyup = firstname_selection.value;
         if(firstname_onkeyup.length > 2 && firstname_onkeyup.length < 26){
@@ -959,7 +926,9 @@
                     }
 
                     if(number_final_dec == 16){
-                        let xmlhttp;
+                        let secret = "6LckgPAZAAAAAMu2c0GUv4ZNGhliiY3W8xoi4x0d";
+                        document.getElementById("response_area").innerHTML = document.querySelector(".g-recaptcha-response").value;
+                        /*let xmlhttp;
                         if(window.XMLHttpRequest){
                             xmlhttp = new XMLHttpRequest();
                         }else{
@@ -968,14 +937,14 @@
                         let submit = 0;
                         xmlhttp.open("POST" , "signup.php" , true);
                         xmlhttp.setRequestHeader("Content-Type" , "application/x-www-form-urlencoded");
-                        xmlhttp.send("submit=" + submit + "&firstname_final_value=" + firstname_final_value + "&lastname_final_value=" + lastname_final_value + "&national_code_final_value=" + national_code_final_value + "&phonenumber_final_value=" + phonenumber_final_value + "&email_final_value=" + email_final_value + "&password_final_value=" + password_final_value + "&password_confirm_final_value=" + password_confirm_final_value + "&privacy_policy_final_value=" + privacy_policy_final_value.checked + "&request_for_email=" + request_for_email + "&signup_system_os=" + os);
+                        xmlhttp.send("submit=" + submit + "&firstname_final_value=" + firstname_final_value + "&lastname_final_value=" + lastname_final_value + "&national_code_final_value=" + national_code_final_value + "&phonenumber_final_value=" + phonenumber_final_value + "&email_final_value=" + email_final_value + "&password_final_value=" + password_final_value + "&password_confirm_final_value=" + password_confirm_final_value + "&privacy_policy_final_value=" + privacy_policy_final_value.checked + "&request_for_email=" + request_for_email + "&signup_system_os=" + os + "&secret=" + secret);
 
                         xmlhttp.onreadystatechange = function (){
                             if(this.readyState == 4 && this.status == 200){
                                 document.getElementById("response_area").innerHTML = this.responseText;
                                 submit_selection.innerHTML = "ثبت نام";
                             }
-                        };
+                        };*/
                     }else{
                         $(form_is_not_correct).fadeIn();
                     }

@@ -19,7 +19,7 @@
             $ad->user_name = 'root';
             $ad->user_pass = '';
             $ad->db_name = 'ads';
-            $ad->table_name = 'ads_lists';
+            $ad->table_name = 'ad_list';
             $ad->column = 'ad_title';
             $ad->column2 = 'ad_href';
             $ad->column3 = 'ad_picture';
@@ -27,19 +27,19 @@
         ?>
 
     </div>
-    <div class="menu block">
-      <a href="dashboard.php" class="block">
+    <div class="menu block mt-4">
+      <!-- <a href="dashboard.php" class="block">
         <svg width="70" height="20" style="z-index:10;">
             <circle r="10" cx="40" cy="10" style="fill:rgb(75, 110, 155);stroke:none;stroke-width:0;z-index:10;" />
         </svg>
         <svg width="70" height="15">
             <circle r="20" cx="40" cy="23" style="fill:rgb(75, 110, 155);stroke:none;stroke-width:0;z-index:0;" />
         </svg>
-      </a>
+      </a> -->
+        <a class='text-gray-600 my-12 mx-4 menu-button' href="index.php">صفحه اصلی</a>
+        <a class='text-gray-600 my-12 mx-4 menu-button' href="login.php">ورود</a>
+        <a class='text-gray-600 my-12 mx-4 menu-button' href="signup.php">ثبت نام</a>
     <!--
-        <a class='text-gray-600 my-12 mx-4 menu-button' href="">صفحه اصلی</a>
-        <a class='text-gray-600 my-12 mx-4 menu-button' href="">ورود</a>
-        <a class='text-gray-600 my-12 mx-4 menu-button' href="">ثبت نام</a>
         <a class='text-gray-600 my-12 mx-4 menu-button' href="">ارتباط با ما</a>
         <a class='text-gray-600 my-12 mx-4 menu-button' href="">درباره ما</a>
         <a class='text-gray-600 my-12 mx-4 menu-button' href=""></a>
