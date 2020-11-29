@@ -127,23 +127,38 @@
             exit("<div class='text-red-700 text-xl text-none mb-2 font-bold'></div>");
         }
     }
-?>
+    ?>
+<script>
+    let media = window.matchMedia("(max-width:700px)");
+    media.addListener(form_media);
+    function form_media(media){
+        if(media.match){
+            document.body.style.backgroundColor = "blue";
+        }else{
+            document.body.style.backgroundColor = "red";
+        }
+    }
+</script>
 <div class="scroll scroll-width-thin"></div>
 <div class="middle mtop">
     <div>
         <form class="text-center unselectable">
             <div>
                 <div>لطفا اطلاعات خود را جهت ثبت نام در سایت شرکت افراگستر نوین وارد نموده و گزینه ثبت نام را کلیک کنید</div>
-                    <label class="mr-2 text-gray-700 text-l font-bold mb-2 text-none" for="firstname">نام: </label><span class="text-red-700">*</span>
-                    <input class="firstname my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="firstname" name="firstname" maxlength="25" placeholder="علی" autocomplete="FALSE"/>
-                    <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="firstname_blur">نام باید بین 3 تا 25 کاراکتر باشد</span></div>
-                    <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="firstname_blur_lang">لطفا به فارسی تایپ کنید</span></div>
-                </div>
+                
                 <div>
+                    <label class="mr-2 text-gray-700 text-l font-bold mb-2 text-none" for="firstname">نام: </label><span class="text-red-700">*</span>
+                    <input class="firstname my-4 shadow appearance-none border rounded py-2 px-2 text-gray-700 w-1/5 leading-tight focus:outline-none focus:shadow-outline" type="text" id="firstname" name="firstname" maxlength="25" placeholder="علی" autocomplete="FALSE"/>
                     <label class="text-gray-700 text-l font-bold mb-2 text-none" for="lastname">نام خانوادگی: </label><span class="text-red-700">*</span>
-                    <input class="lastname ml-12 my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="lastname" name="lastname" maxlength="30" placeholder="امیری" autocomplete="FALSE"/>
-                    <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="lastname_blur">نام خانوادگی باید بین 4 تا 30 کاراکتر باشد</span></div>
-                    <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="lastname_blur_lang">لطفا به فارسی تایپ کنید</span></div>
+                    <input class="lastname grid-cols-5 ml-12 my-4 shadow appearance-none border rounded w-1/5 py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="lastname" name="lastname" maxlength="30" placeholder="امیری" autocomplete="FALSE"/>
+                    <script>
+                    </script>
+                </div>
+                <!--
+                    <span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="firstname_blur">نام باید بین 3 تا 25 کاراکتر باشد</span>
+                    <span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="firstname_blur_lang">لطفا به فارسی تایپ کنید</span>
+                    <span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="lastname_blur">نام خانوادگی باید بین 4 تا 30 کاراکتر باشد</span>
+                    <span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="lastname_blur_lang">لطفا به فارسی تایپ کنید</span>
                 </div>
                 <div>
                     <label class="mr-4 text-gray-700 text-l font-bold mb-2 text-none" for="national_code">شماره ملی: </label><span class="text-red-700">*</span>
@@ -190,6 +205,7 @@
                     <div class="g-recaptcha" id="recaptcha" data-sitekey="6LckgPAZAAAAAOx7EZxBTqJhB_Nw-g7b3xOL7gGg"></div>
                 </div>
                 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                -->
                 <!-- IMPORTANT! -->
                 <div>
                     <div>
