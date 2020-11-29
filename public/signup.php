@@ -186,8 +186,10 @@
                     <div id="char8" style="color:red;">دارای حداقل هشت کاراکتر</div>
                     <div id="special_char8" style="color:red;">دارای حداقل یک کاراکتر خاص</div>
                 </div>
+                <div class="recaptcha text-center block clear-both m-auto">
+                    <div class="g-recaptcha" id="recaptcha" data-sitekey="6LckgPAZAAAAAOx7EZxBTqJhB_Nw-g7b3xOL7gGg"></div>
+                </div>
                 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-                <div class="g-recaptcha" id="recaptcha" data-sitekey="6LckgPAZAAAAAOx7EZxBTqJhB_Nw-g7b3xOL7gGg"></div>
                 <!-- IMPORTANT! -->
                 <div>
                     <div>

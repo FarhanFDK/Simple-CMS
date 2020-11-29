@@ -26,7 +26,7 @@
     $visit->connect();
 
 
-    $visits = NEW VISITS;
+    $visits = NEW VISITS();
     $visits->host_name = 'localhost';
     $visits->user_name = 'root';
     $visits->user_pass = '';
