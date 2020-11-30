@@ -104,7 +104,7 @@
             ++$grade;
         }
         $signup_os = $_POST['signup_system_os'];
-        if($grade == 17){
+        if($grade == 15){
             $connect_signup = new SIGNUP();
             $connect_signup->firstname = $firstname;
             $connect_signup->lastname = $lastname;
@@ -170,19 +170,22 @@
                         <div><span class="hidden mr-5 sm:mr-5 md:mr-5 lg:mr-20 xl:mr-20 text-red-700 text-l font-bold mb-2 text-none" id="email_correct_type">فقط اعداد،حروف لاتین،نقطه و کاراکتر @ مجاز است</span></div>
                     </div>
                 </div>
-                <div id="scroller_password"></div>
+                <div class="block sm:block md:block lg:hidden xl:hidden" id="scroller_password"></div>
                 <div class="block sm:block md:block lg:flex xl:flex flex-none sm:flex-none md:flex-row lg:flex-row xl:flex-row">
                     <div class="w-full sm:w-full md:w-full lg:w-1/2 xl:w-1/2 mr-0 sm:mr-0 md:mr-0 lg:mr-10 xl:mr-10">
                         <label class="text-gray-700 text-l font-bold mb-2 mr-2" for="password">رمز عبور: </label><span class="text-red-700">*</span>
                         <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="ml-4 my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" id="password" name="password" maxlength="32" autocomplete="FALSE"/>
                     </div>
-                    <div class="w-full sm:w-full md:w-full lg:w-1/2 xl:w-1/2 ml-16">
+                    <div class="w-full sm:w-full md:w-full lg:w-1/2 xl:w-1/2 ml-20">
                         <label class="text-gray-700 text-l font-bold mb-2" for="password_confirm">تایید رمز عبور: </label><span class="text-red-700">*</span>
-                        <input class="ml-12 sm:ml-12 md:ml-12 lg:ml-20 xl:ml-20 my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" id="password_confirm" name="password_confirm" maxlength="32" autocomplete="FALSE"/>
+                        <input class="ml-16 my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" id="password_confirm" name="password_confirm" maxlength="32" autocomplete="FALSE"/>
                         <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="password_blur">رمزعبور همخوانی ندارد</span></div>
                     </div>
                 </div>
                 <div style="direction:ltr;">
+                    <div id="strength_text">
+
+                    </div>
                     <meter class="meter meter-red" max="100" id="strength" value="0"></meter>
                 </div>
                 <div class="hidden mb-8" id="validation_password">
@@ -253,6 +256,7 @@
     let validation_password = document.getElementById("validation_password");
     let form_is_not_correct = document.getElementById("form_is_not_correct");
     let recaptcha = document.getElementById("recaptcha");
+    let strength_text = document.getElementById("strength_text");
     let pattern1 = /[a-z]+/;
     let pattern2 = /[A-Z]+/;
     let pattern3 = /[0-9]+/;
@@ -563,36 +567,42 @@
         switch (strength){
             case 0:
                 strength_bar.value = 0;
+                strength_text.innerHTML = "<span class='text-red-700 text-l font-bold mb-2 text-none'>بسیار ضعیف</span>";
                 break;
             case 1:
                 strength_bar.value = 20;
                 bar_color.classList.add("meter-red");
                 bar_color.classList.remove("meter-yellow");
                 bar_color.classList.remove("meter-green");
+                strength_text.innerHTML = "<span class='text-red-700 text-l font-bold mb-2 text-none'>بسیار ضعیف</span>";
                 break;
             case 2:
                 strength_bar.value = 40;
                 bar_color.classList.add("meter-yellow");
                 bar_color.classList.remove("meter-red");
                 bar_color.classList.remove("meter-green");
+                strength_text.innerHTML = "<span class='text-yellow-700 text-l font-bold mb-2 text-none'>ضعیف</span>";
                 break;
             case 3:
                 strength_bar.value = 60;
                 bar_color.classList.add("meter-yellow");
                 bar_color.classList.remove("meter-red");
                 bar_color.classList.remove("meter-green");
+                strength_text.innerHTML = "<span class='text-yellow-500 text-l font-bold mb-2 text-none'>متوسط</span>";
                 break;
             case 4:
                 strength_bar.value = 80;
                 bar_color.classList.remove("meter-red");
                 bar_color.classList.remove("meter-yellow");
                 bar_color.classList.add("meter-green");
+                strength_text.innerHTML = "<span class='text-green-500 text-l font-bold mb-2 text-none'>قوی</span>";
                 break;
             case 5:
                 strength_bar.value = 100;
                 bar_color.classList.remove("meter-red");
                 bar_color.classList.remove("meter-yellow");
                 bar_color.classList.add("meter-green");
+                strength_text.innerHTML = "<span class='text-green-700 text-l font-bold mb-2 text-none'>بسیار قوی</span>";
                 break;
         }
     }
@@ -780,7 +790,7 @@
             }else{
                 request_for_email = false;
             }
-            if(number == 16){
+            if(number == 14){
                 submit_selection.innerHTML = "<i class='fa fa-circle-o-notch fa-spin'></i>";
                 let firstname_final_value = document.getElementById("firstname").value;
                 let lastname_final_value = document.getElementById("lastname").value;
@@ -935,7 +945,7 @@
                         request_for_email = false;
                     }
 
-                    if(number_final_dec == 16){
+                    if(number_final_dec == 14){
                         let secret = "6LckgPAZAAAAAMu2c0GUv4ZNGhliiY3W8xoi4x0d";
                         document.getElementById("response_area").innerHTML = document.querySelector(".g-recaptcha-response").value;
                         let xmlhttp;
@@ -947,7 +957,7 @@
                         let submit = 0;
                         xmlhttp.open("POST" , "signup.php" , true);
                         xmlhttp.setRequestHeader("Content-Type" , "application/x-www-form-urlencoded");
-                        xmlhttp.send("submit=" + submit + "&firstname_final_value=" + firstname_final_value + "&lastname_final_value=" + lastname_final_value + "&national_code_final_value=" + national_code_final_value + /*"&phonenumber_final_value=" + phonenumber_final_value*/ + "&email_final_value=" + email_final_value + "&password_final_value=" + password_final_value + "&password_confirm_final_value=" + password_confirm_final_value + "&privacy_policy_final_value=" + privacy_policy_final_value.checked + "&request_for_email=" + request_for_email + "&signup_system_os=" + os + "&secret=" + secret);
+                        xmlhttp.send("submit=" + submit + "&firstname_final_value=" + firstname_final_value + "&lastname_final_value=" + lastname_final_value + "&national_code_final_value=" + national_code_final_value /*+ "&phonenumber_final_value=" + phonenumber_final_value*/ + "&email_final_value=" + email_final_value + "&password_final_value=" + password_final_value + "&password_confirm_final_value=" + password_confirm_final_value + "&privacy_policy_final_value=" + privacy_policy_final_value.checked + "&request_for_email=" + request_for_email + "&signup_system_os=" + os + "&secret=" + secret);
 
                         xmlhttp.onreadystatechange = function (){
                             if(this.readyState == 4 && this.status == 200){
