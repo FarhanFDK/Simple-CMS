@@ -4,9 +4,9 @@
         public $handle;
         public $entry;
         function connect(){
-            if ($this->handle = opendir($this->directory)) {
-                while (false !== ($this->entry = readdir($this->handle))) {
-                    if ($this->entry != "." && $this->entry != "..") {
+            if($this->handle = opendir($this->directory)){
+                while(false !== ($this->entry = readdir($this->handle))){
+                    if($this->entry != "." && $this->entry != "..") {
 
                         echo "$this->entry\n";
                     }
@@ -44,6 +44,14 @@
         public $ad_link;
         public $ad_picture;
         function connect(){
+            $this->host_name = 'localhost';
+            $this->user_name = 'root';
+            $this->user_pass = '';
+            $this->db_name = 'ads';
+            $this->table_name = 'ad_list';
+            $this->column = 'ad_title';
+            $this->column2 = 'ad_href';
+            $this->column3 = 'ad_picture';
             $this->connection = mysqli_connect($this->host_name , $this->user_name , $this->user_pass , $this->db_name);
             $this->query = "SELECT * FROM `$this->table_name`";
             $this->result = mysqli_query($this->connection , $this->query);
@@ -72,9 +80,9 @@
 
 
     class VISITS{
-        public $host_name;   // SET MANUALLY
-        public $user_name;   // SET MANUALLY
-        public $user_pass;   // SET MANUALLY
+        private $host_name;   // SET MANUALLY
+        private $user_name;   // SET MANUALLY
+        private $user_pass;   // SET MANUALLY
         public $db_name;     // SET MANUALLY
         public $column;      // SET MANUALLY
         public $table_name;  // SET MANUALLY
@@ -86,6 +94,9 @@
         public $query2;
         public $result2;
         function connect(){
+            $this->host_name = 'localhost';
+            $this->user_name = 'root';
+            $this->user_pass = '';
             $this->connection = mysqli_connect($this->host_name , $this->user_name , $this->user_pass , $this->db_name);
             $this->query = "SELECT `$this->column` FROM `$this->table_name` WHERE id=1 LIMIT 1";
             $this->result = mysqli_query($this->connection , $this->query);
@@ -102,26 +113,33 @@
     class CALENDAR{
         function show(){
             require "src/includes/jdf.php";
-            echo jdate('Y/m/d' , '' , '' , 'Asia/Tehran' , 'en');
+            return jdate('Y/m/d' , '' , '' , 'Asia/Tehran' , 'en');
         }
     }
 
 
     class MENU{
-        public $host_name;   // SET MANUALLY
-        public $user_name;   // SET MANUALLY
-        public $user_pass;   // SET MANUALLY
-        public $db_name;     // SET MANUALLY
-        public $table_name;  // SET MANUALLY
-        public $column_title;
-        public $column_href;
-        public $connection;
-        public $query;
-        public $result;
-        public $row;
-        public $title;
-        public $href;
+        private $host_name;
+        private $user_name;
+        private $user_pass;
+        private $db_name;
+        private $table_name;
+        private $column_title;
+        private $column_href;
+        private $connection;
+        private $query;
+        private $result;
+        private $row;
+        private $title;
+        private $href;
         function connect(){
+            $this->host_name = 'localhost';
+            $this->user_name = 'root';
+            $this->user_pass = '';
+            $this->db_name = 'MENU';
+            $this->table_name = 'list';
+            $this->column_title = 'title';
+            $this->column_href = 'href';
             $this->connection = mysqli_connect($this->host_name , $this->user_name , $this->user_pass , $this->db_name);
             $this->query = "SELECT * FROM `$this->table_name`";
             $this->result = mysqli_query($this->connection , $this->query);
@@ -135,25 +153,24 @@
 
 
     class IP{
-        public $client;
-        public $forward;
-        public $remote;
-        public $ip;
+        private $client;
+        private $forward;
+        private $remote;
+        private $ip;
         function getUserIP(){
             $this->client  = @$_SERVER['HTTP_CLIENT_IP'];
             $this->forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
             $this->remote  = $_SERVER['REMOTE_ADDR'];
 
-            if(filter_var($this->client, FILTER_VALIDATE_IP))
-            {
+            if(filter_var($this->client, FILTER_VALIDATE_IP)){
                 $this->ip = $this->client;
             }
-            elseif(filter_var($this->forward, FILTER_VALIDATE_IP))
-            {
+
+            elseif(filter_var($this->forward, FILTER_VALIDATE_IP)){
                 $this->ip = $this->forward;
             }
-            else
-            {
+
+            else{
                 $this->ip = $this->remote;
             }
 

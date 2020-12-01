@@ -17,9 +17,6 @@
 <?php
 
     $visit = NEW VISITS();
-    $visit->host_name = 'localhost';
-    $visit->user_name = 'root';
-    $visit->user_pass = '';
     $visit->db_name = 'visits';
     $visit->column = 'visit_number';
     $visit->table_name = 'visits';
@@ -27,9 +24,6 @@
 
 
     $visits = NEW VISITS();
-    $visits->host_name = 'localhost';
-    $visits->user_name = 'root';
-    $visits->user_pass = '';
     $visits->db_name = 'another_page_visits';
     $visits->column = 'visit_number';
     $visits->table_name = 'home/page';
