@@ -114,21 +114,20 @@
             $connect_signup->password = $password;
             $connect_signup->email_ad = $request_for_email;
             $connect_signup->signup_system_os = $signup_os;
-            $connect_signup->secret = $_POST['secret'];
             
             $reflector = new ReflectionObject($connect_signup);
             $method = $reflector->getMethod('connect');
             $method->setAccessible(true);
 
             if($method->invoke($connect_signup) == true){
-
+                exit("fuck you");
             }
         }else{
             exit("<div class='text-red-700 text-xl text-none mb-2 font-bold'></div>");
         }
     }
     ?>
-<div class="scroll scroll-width-thin"></div>
+
 <div class="middle mtop">
     <div>
         <form class="text-center unselectable">
@@ -152,8 +151,8 @@
                     <div class="w-full sm:w-full md:w-full lg:w-1/2 xl:w-1/2 mr-0 sm:mr-0 md:mr-0 lg:mr-2 xl:mr-2">
                         <label class="mr-4 text-gray-700 text-l mr-4 sm:mr-4 md:mr-4 lg:mr-20 xl:mr-20 font-bold mb-2 text-none" for="national_code">شماره ملی: </label><span class="text-red-700">*</span>
                         <input class="ml-12 my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="0123456789" type="text" id="national_code" name="national_code" maxlength="10" style="direction:ltr;font-family:yekan;" autocomplete="FALSE"/>
-                        <div><span class="hidden mr-5 sm:mr-5 md:mr-5 lg:mr-20 xl:mr-20 text-red-700 text-l font-bold mb-2 text-none" id="national_code_blur">شماره ملی باید 10 رقم باشد</span></div>
-                        <div><span class="hidden mr-5 sm:mr-5 md:mr-5 lg:mr-20 xl:mr-20 text-red-700 text-l font-bold mb-2 text-none" id="national_code_correct">لطفا به عدد لاتین تایپ کنید</span></div>
+                        <div><span class="hidden mr-10 sm:mr-10 md:mr-10 lg:mr-32 xl:mr-32 text-red-700 text-l font-bold mb-2 text-none" id="national_code_blur">شماره ملی باید 10 رقم باشد</span></div>
+                        <div><span class="hidden mr-10 sm:mr-10 md:mr-10 lg:mr-32 xl:mr-32 text-red-700 text-l font-bold mb-2 text-none" id="national_code_correct">لطفا به عدد لاتین تایپ کنید</span></div>
                     </div>
                     <div class="w-full sm:w-full md:w-full lg:w-1/2 xl:w-1/2 ml-20">
                         <!--
@@ -174,10 +173,10 @@
                 <div class="block sm:block md:block lg:flex xl:flex flex-none sm:flex-none md:flex-row lg:flex-row xl:flex-row">
                     <div class="w-full sm:w-full md:w-full lg:w-1/2 xl:w-1/2 mr-0 sm:mr-0 md:mr-0 lg:mr-10 xl:mr-10">
                         <label class="text-gray-700 text-l font-bold mb-2 mr-2" for="password">رمز عبور: </label><span class="text-red-700">*</span>
-                        <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="ml-4 my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" id="password" name="password" maxlength="32" autocomplete="FALSE"/>
+                        <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="ml-6 sm:ml-6 md:ml-6 lg:ml-0 xl:ml-0 my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" id="password" name="password" maxlength="32" autocomplete="FALSE"/>
                     </div>
                     <div class="w-full sm:w-full md:w-full lg:w-1/2 xl:w-1/2 ml-20">
-                        <label class="text-gray-700 text-l font-bold mb-2" for="password_confirm">تایید رمز عبور: </label><span class="text-red-700">*</span>
+                        <label class="text-gray-700 text-l mr-4 sm:mr-4 md:mr-4 lg:mr-0 xl:mr-0 font-bold mb-2" for="password_confirm">تایید رمز عبور: </label><span class="text-red-700">*</span>
                         <input class="ml-16 my-4 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" id="password_confirm" name="password_confirm" maxlength="32" autocomplete="FALSE"/>
                         <div><span class="hidden text-red-700 text-l font-bold mb-2 text-none" id="password_blur">رمزعبور همخوانی ندارد</span></div>
                     </div>
@@ -197,9 +196,12 @@
                     <div id="special_char8" style="color:red;">دارای حداقل یک کاراکتر خاص</div>
                 </div>
                 <div class="recaptcha text-center block clear-both m-auto">
-                    <div class="g-recaptcha" id="recaptcha" data-sitekey="6LckgPAZAAAAAOx7EZxBTqJhB_Nw-g7b3xOL7gGg"></div>
+                    <div class="g-recaptcha" id="recaptcha" data-callback="recaptcha_changed" data-sitekey="6LckgPAZAAAAAOx7EZxBTqJhB_Nw-g7b3xOL7gGg"></div>
                 </div>
-                <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                <div class="hidden text-red-700 text-l font-bold mb-2 text-none" id="recaptcha_correct">
+                    لطفا گزینه &#34; من ربات نیستم &#34; را علامت بزنید
+                </div>
+                <script src="https://www.google.com/recaptcha/api.js?hl=fa" async defer></script>
                 <!-- IMPORTANT! -->
                 <div>
                     <div>
@@ -212,9 +214,9 @@
                     </div>
                 </div>
                 <div id="form_is_not_correct" class="hidden mt-10 text-red-700 text-l font-bold mb-2 text-none">
-                    لطفا فیلدها را کامل کنید
+                    لطفا فرم را به درستی کامل کنید
                 </div>
-                <div id="response_area" style="user-select:all !important;">
+                <div id="response_area">
 
                 </div>
                 <div>
@@ -255,7 +257,7 @@
     let password_blur = document.getElementById("password_blur");
     let validation_password = document.getElementById("validation_password");
     let form_is_not_correct = document.getElementById("form_is_not_correct");
-    let recaptcha = document.getElementById("recaptcha");
+    let recaptcha_correct = document.getElementById("recaptcha_correct");
     let strength_text = document.getElementById("strength_text");
     let pattern1 = /[a-z]+/;
     let pattern2 = /[A-Z]+/;
@@ -263,6 +265,10 @@
     let pattern4 = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]+/;
     let pattern_persian = /^[\u0600-\u06FF\s]+$/;
     let pattern_number = /^\d+$/;
+    function recaptcha_changed(){
+        $(recaptcha_correct).fadeOut();
+    }
+
     firstname_selection.onblur = function (){
         let firstname_onblur = firstname_selection.value;
         if(firstname_onblur.length < 3 || firstname_onblur.length > 25){
@@ -293,7 +299,6 @@
     firstname_selection.onkeypress = function (e){
         let key = e.which ? e.which : e.keyCode;
         if(!(key > 1579 && key < 1595) && !(key > 1600 && key < 1609) && !(key > 1568 && key < 1573) && !(key == 1574) && !(key == 1610) && !(key == 1620) && !(key == 1688) && !(key == 1662) && !(key == 1576) && !(key == 1579) && !(key == 1705) && !(key == 1711) && !(key == 1575) && !(key == 1578) && !(key == 1740) && !(key == 1670) && !(key == 32) && !(key == 13) && !(key == 18) && !(key == 9) && !(key == 16) && !(key == 116) && !(key == 8) && !(key > 36 && key < 41)){
-            e.preventDefault();
             $(firstname_blur_lang).fadeIn();
         }else{
             $(firstname_blur_lang).fadeOut();
@@ -330,7 +335,6 @@
     lastname_selection.onkeypress = function (e){
         let key = e.which ? e.which : e.keyCode;
         if(!(key > 1579 && key < 1595) && !(key > 1600 && key < 1609) && !(key > 1568 && key < 1573) && !(key == 1574) && !(key == 1610) && !(key == 1620) && !(key == 1688) && !(key == 1662) && !(key == 1576) && !(key == 1579) && !(key == 1705) && !(key == 1711) && !(key == 1575) && !(key == 1578) && !(key == 1740) && !(key == 1670) && !(key == 32) && !(key == 13) && !(key == 18) && !(key == 9) && !(key == 16) && !(key == 116) && !(key == 8) && !(key > 36 && key < 41)){
-            e.preventDefault();
             $(lastname_blur_lang).fadeIn();
         }else{
             $(lastname_blur_lang).fadeOut();
@@ -476,42 +480,46 @@
                   let charAt1_onkeyup = email_onkeyup.charAt(indexOf1_onkeyup + 1);
                   let format = /[a-zA-Z]/;
                   let format2 = /[A-Z]/;
-                  if(format.test(charAt1_onkeyup) != 0 || format2.test(charAt1_onkeyup) != 0){
-                      let charAt2_onkeyup = email_onkeyup.charAt(indexOf1_onkeyup + 2);
-                      if(format.test(charAt2_onkeyup) != 0 || format2.test(charAt2_onkeyup != 0)){
-                          let charAt3_onkeyup = email_onkeyup.charAt(indexOf1_onkeyup + 3);
-                          if(format.test(charAt3_onkeyup) != 0 || format2.test(charAt3_onkeyup) != 0){
-                              let indexOf2_onkeyup = email_onkeyup.indexOf(".");
-                              if(!(indexOf2_onkeyup == -1)){
-                                  let charAt1_dot_onkeyup = email_onkeyup.charAt(indexOf2_onkeyup + 1);
-                                  if(format.test(charAt1_dot_onkeyup) != 0 || format2.test(charAt1_dot_onkeyup) != 0){
-                                      let charAt2_dot_onkeyup = email_onkeyup.charAt(indexOf2_onkeyup + 2);
-                                      if(format.test(charAt2_dot_onkeyup) != 0 || format2.test(charAt2_dot_onkeyup) != 0){
-                                          $(email_correct).fadeOut();
-                                      }else{
-                                          $(email_correct).fadeIn();
-                                      }
-                                  }else{
-                                      $(email_correct).fadeIn();
-                                  }
-                              }else{
-                                  $(email_correct).fadeIn();
-                              }
-                          }else{
-                              $(email_correct).fadeIn();
-                          }
-                      }else{
-                          $(email_correct).fadeIn();
-                      }
-                  }else{
-                      $(email_correct).fadeIn();
-                  }
-              }else{
-                  $(email_correct).fadeIn();
-              }
+                  let format3 = /../;
+                    if(format.test(charAt1_onkeyup) != 0 || format2.test(charAt1_onkeyup) != 0){
+                        let charAt2_onkeyup = email_onkeyup.charAt(indexOf1_onkeyup + 2);
+                        if(format.test(charAt2_onkeyup) != 0 || format2.test(charAt2_onkeyup != 0)){
+                            let charAt3_onkeyup = email_onkeyup.charAt(indexOf1_onkeyup + 3);
+                            if(format.test(charAt3_onkeyup) != 0 || format2.test(charAt3_onkeyup) != 0){
+                                let indexOf2_onkeyup = email_onkeyup.indexOf(".");
+                                if(!(indexOf2_onkeyup == -1)){
+                                    let charAt1_dot_onkeyup = email_onkeyup.charAt(indexOf2_onkeyup + 1);
+                                    if(format.test(charAt1_dot_onkeyup) != 0 || format2.test(charAt1_dot_onkeyup) != 0){
+                                            let charAt2_dot_onkeyup = email_onkeyup.charAt(indexOf2_onkeyup + 2);
+                                            if(format.test(charAt2_dot_onkeyup) != 0 || format2.test(charAt2_dot_onkeyup) != 0){
+                                                if(format3.test(email_onkeyup) != 0){
+                                                    $(email_correct).fadeOut();
+                                                }else{
+                                                    //    $(email_correct).fadeIn();
+                                                }
+                                            }else{
+                                                //    $(email_correct).fadeIn();
+                                            }
+                                    }else{
+                                        //    $(email_correct).fadeIn();
+                                    }
+                                }else{
+                                    //    $(email_correct).fadeIn();
+                                }
+                            }else{
+                                //    $(email_correct).fadeIn();
+                            }
+                        }else{
+                            //   $(email_correct).fadeIn();
+                        }
+                    }else{
+                        // $(email_correct).fadeIn();
+                    }
+                }else{
+                    // $(email_correct).fadeIn();
+                }
           }
     }
-
     email_selection.onkeypress = function (e){
         let key = e.which ? e.which : e.keyCode;
         if(!(key > 47 && key < 58) && !(key == 64) && !(key > 64 && key < 91) && !(key == 46) && !(key > 96 && key < 123) && !(key > 36 && key < 41) && !(key < 19 && key > 15) && !(key == 20) && !(key == 9) && !(key == 13) && !(key == 116) && !(key > 96 && key < 106) && !(key == 8)){
@@ -638,6 +646,7 @@
         $(privacy_policy_onsubmit).fadeOut();
     }
     submit_selection.onclick = function (){
+        let response = document.getElementById("g-recaptcha-response");
         let firstname_value = firstname_selection.value;
         let lastname_value = lastname_selection.value;
         let national_code_value = national_code_selection.value;
@@ -649,6 +658,12 @@
         let email_requests = email_requests_selection;
         let os = getOS();
         let number = 0;
+        if(response.value != ""){
+            number++;
+        }else{
+            $(recaptcha_correct).fadeIn();
+        }
+
         if(firstname_value.length > 2 && firstname_value.length < 26){
             number++;
         }else{
@@ -790,7 +805,7 @@
             }else{
                 request_for_email = false;
             }
-            if(number == 14){
+            if(number == 15){
                 submit_selection.innerHTML = "<i class='fa fa-circle-o-notch fa-spin'></i>";
                 let firstname_final_value = document.getElementById("firstname").value;
                 let lastname_final_value = document.getElementById("lastname").value;
@@ -947,7 +962,6 @@
 
                     if(number_final_dec == 14){
                         let secret = "6LckgPAZAAAAAMu2c0GUv4ZNGhliiY3W8xoi4x0d";
-                        document.getElementById("response_area").innerHTML = document.querySelector(".g-recaptcha-response").value;
                         let xmlhttp;
                         if(window.XMLHttpRequest){
                             xmlhttp = new XMLHttpRequest();
@@ -957,7 +971,7 @@
                         let submit = 0;
                         xmlhttp.open("POST" , "signup.php" , true);
                         xmlhttp.setRequestHeader("Content-Type" , "application/x-www-form-urlencoded");
-                        xmlhttp.send("submit=" + submit + "&firstname_final_value=" + firstname_final_value + "&lastname_final_value=" + lastname_final_value + "&national_code_final_value=" + national_code_final_value /*+ "&phonenumber_final_value=" + phonenumber_final_value*/ + "&email_final_value=" + email_final_value + "&password_final_value=" + password_final_value + "&password_confirm_final_value=" + password_confirm_final_value + "&privacy_policy_final_value=" + privacy_policy_final_value.checked + "&request_for_email=" + request_for_email + "&signup_system_os=" + os + "&secret=" + secret);
+                        xmlhttp.send("submit=" + submit + "&firstname_final_value=" + firstname_final_value + "&lastname_final_value=" + lastname_final_value + "&national_code_final_value=" + national_code_final_value /*+ "&phonenumber_final_value=" + phonenumber_final_value*/ + "&email_final_value=" + email_final_value + "&password_final_value=" + password_final_value + "&password_confirm_final_value=" + password_confirm_final_value + "&privacy_policy_final_value=" + privacy_policy_final_value.checked + "&request_for_email=" + request_for_email + "&signup_system_os=" + os + "&secret=" + secret + "&response=" + response.value);
 
                         xmlhttp.onreadystatechange = function (){
                             if(this.readyState == 4 && this.status == 200){
@@ -969,6 +983,7 @@
                         $(form_is_not_correct).fadeIn();
                     }
             }else{
+                submit_selection.innerHTML = "ثبت نام";
                 $(form_is_not_correct).fadeIn()
             }
         }

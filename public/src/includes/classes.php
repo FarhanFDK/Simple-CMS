@@ -257,6 +257,12 @@
         private $message;
         private $headers;
         private $url;
+        private $secret;
+        private $response;
+        private $success;
+        private $hostname;
+        private $time;
+        private $array;
         public $firstname;
         public $signup_system_os;
         public $lastname;
@@ -265,13 +271,20 @@
         public $email;
         public $password;
         public $email_ad;
-        public $secret;
         private function connect(){
             // use PHPMailer\PHPMailer\PHPMailer;
             // use PHPMailer\PHPMailer\SMTP;
             // use PHPMailer\PHPMailer\Exception;
             // require "vendor/phpmailer/autoload.php";
-            //if(){
+            $this->response = $_POST['response'];
+            $this->secret = $_POST['secret'];
+            $this->response = $_POST['response'];
+            $this->signup_ip_pre = new IP();
+            $this->signup_ip = $this->signup_ip_pre->getUserIP();
+            $this->url = "https://www.google.com/recaptcha/api/siteverify?" . "secret=" . $this->secret . "&response=" . $this->response . "&remote_ip=" . $this->signup_ip;
+            $this->array = json_decode(file_get_contents($this->url) , true);
+            $this->success = $this->array['success'];
+            if($this->success == true){
                 require "src/includes/jdf.php";
                 $this->signup_date = jdate('Y/m/d g:i:a a' , '' , '' , 'Asia/Tehran' , 'en');
                 $this->host_name = 'localhost';
@@ -285,13 +298,11 @@
                     // $this->phonenumber = mysqli_real_escape_string($this->connection , $this->phonenumber);
                     $this->email = mysqli_real_escape_string($this->connection , $this->email);
                     $this->email = strtolower($this->email);
-                    $this->query_confirm = "SELECT * FROM `$this->table_name` WHERE `national_code` = '$this->national_code' OR /*phonenumber = $this->phonenumber OR */ `email` = '$this->email'";
+                    $this->query_confirm = "SELECT * FROM `$this->table_name` WHERE `national_code` = '$this->national_code' OR `email` = '$this->email'"; /*phonenumber = $this->phonenumber OR */
                     $this->result_confirm = mysqli_query($this->connection , $this->query_confirm);
                     if(mysqli_num_rows($this->result_confirm) > -1){
-                        $this->signup_ip_pre = new IP();
-                        $this->signup_ip = $this->signup_ip_pre->getUserIP();
                         $this->signup_date = mysqli_real_escape_string($this->connection , $this->signup_date);
-                        $this->signup_system_os = mysqli_real_escape_string($this->connection , $this->signup_os);
+                        $this->signup_system_os = mysqli_real_escape_string($this->connection , $this->signup_system_os);
                         $this->signup_ip = mysqli_real_escape_string($this->connection , $this->signup_ip);
                         $this->firstname = mysqli_real_escape_string($this->connection , $this->firstname);
                         $this->lastname = mysqli_real_escape_string($this->connection , $this->lastname);
@@ -305,20 +316,21 @@
                         $this->hash_salt_confirm = $this->hash_F_confirm . $this->salt_confirm;
                         $this->password = crypt($this->password , $this->hash_salt);
                         $this->random_number_email = rand(121030 , 989090);
-                        $this->cookie_login = crypt($this->national_code . $this->phonenumber , $this->hash_salt_confirm);
+                        $this->time = time() + 320;
+                        $this->cookie_login = crypt($this->national_code . $this->firstname , $this->hash_salt_confirm);
                         $this->cookie_login = mysqli_real_escape_string($this->connection , $this->cookie_login);
                         //$this->cookie_login2 = crypt($this->national_code . $this->password , $this->hash_salt_confirm);
-                        $this->query = "INSERT INTO `$this->table_name`(`id`, `signup_date`, `signup_os`, `signup_ip`, `firstname`, `lastname`, `national_code`, `phonenumber`, `email`, `password`, `cookie_login`, `email_ad`, `post_code`, `profile_photo`, `login_date`, `login_os`, `login_ip`)";
-                        $this->query .= "VALUES(NULL , '$this->signup_date' , '$this->signup_system_os' , '$this->signup_ip' , '$this->firstname' , '$this->lastname' , '$this->national_code' , '' , '$this->email' , '$this->password' , '$this->cookie_login' , '$this->email_ad' , '' , '' , '' , '' , '')";
+                        $this->query = "INSERT INTO `$this->table_name`(`id`, `signup_date`, `signup_os`, `signup_ip`, `firstname`, `lastname`, `national_code`, `phonenumber`, `email`, `random_number` , `time` , `password`, `cookie_login`, `email_ad`, `post_code`, `profile_photo`, `login_date`, `login_os`, `login_ip`)";
+                        $this->query .= "VALUES(NULL , '$this->signup_date' , '$this->signup_system_os' , '$this->signup_ip' , '$this->firstname' , '$this->lastname' , '$this->national_code' , '' , '$this->email' , '$this->random_number_email' , '$this->time' , '$this->password' , '$this->cookie_login' , '$this->email_ad' , '' , '' , '' , '' , '')";
                         $this->result = mysqli_query($this->connection , $this->query);
                         if($this->result){
-                            // $_SESSION['firstname'] = $this->firstname;
-                            // $_SESSION['lastname'] = $this->lastname;
-                            // $_SESSION['national_code'] = $this->national_code;
-                            // $_SESSION['email'] = $this->email;
+                            $_SESSION['firstname'] = $this->firstname;
+                            $_SESSION['lastname'] = $this->lastname;
+                            $_SESSION['national_code'] = $this->national_code;
+                            $_SESSION['email'] = $this->email;
                             // $_SESSION['email_ad'] = $this->email_ad;
                             // $_SESSION['phonenumber'] = $this->phonenumber;
-                            $this->subject = "تایید ایمیل";
+                            /*$this->subject = "تایید ایمیل";
                             $this->message = "
                             <!DOCTYPE html>
                             <html>
@@ -333,7 +345,7 @@
                                                  url('../fonts/samim/Samim.woff') format('woff'),
                                                  url('../fonts/samim/Samim.ttf') format('truetype');
                                             font-weight: normal;
-                                            /* Samim font */
+                                            /* Samim font 
                                         }
     
                                         body{
@@ -370,7 +382,9 @@
                             // // setcookie($this->cookie_login , $this->cookie_login2 , time() + 86400 , '/' , 'localhost' , false , true);
                             // ob_end_flush();
                             // mail("$this->email" , "شرکت افراگسترنوین");
-                            // header("Location: verify-phone.php");
+                            */
+                            header("Location: verify-email.php");
+                            exit("fuck you");
                         }else{
                             exit("<p class='text-red-700 text-none mb-2 text-xl font-bold'>ارتباط با سرور با مشکل مواجه شد لطفا بعدا تلاش نمایید</p>");
                         }
@@ -381,7 +395,17 @@
                 }else{
                     exit("<p class='text-red-700 text-none mb-2 text-xl font-bold'>ارتباط با سرور با مشکل مواجه شد</p>");
                 }
-            //}
+            }else{
+                exit("<p class='text-red-700 text-none mb-2 text-xl font-bold'>ارتباط با سرور با مشکل مواجه شد</p>");
+            }
+        }
+        private function verify_email(){
+            $this->host_name = "localhost";
+            $this->user_name = "root";
+            $this->user_pass = "";
+            $this->db_name = "users";
+            $this->table_name = "users_information";
+            $this->connection = mysqli_connect($this->host_name , $this->user_name , $this->user_pass , $this->db_name);
 
         }
 }

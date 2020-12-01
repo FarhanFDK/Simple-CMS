@@ -58,3 +58,4 @@
         ?>
     </div>
 </header>
+<div class="scroll scroll-width-thin"></div>

@@ -1,5 +1,5 @@
 <?php
-    require "src/includes/pdf/TCPDF-main/tcpdf.php";
+    /*require "src/includes/pdf/TCPDF-main/tcpdf.php";
     $pdf = NEW TCPDF('p' , 'mm' , 'A4' , true , 'UTF-8' , false);
     $fontname = TCPDF_FONTS::addTTFfont('src/fonts/samim/Samim.ttf', 'TrueTypeUnicode', '', 20);
     $pdf->SetFont($fontname, '', 14, '', false);
@@ -13,7 +13,7 @@
     // $pdf->MultiCell(60, 4, $html, 1, 'C', 1, 0);
     // $pdf->writeHTMLCell(0, 0, '', '', $html, 'LRTB', 1, 1, true, 'R', true);
     $pdf->WriteHTML($html , true , 0 , true , true);
-    $pdf->Output();
+    $pdf->Output();*/
  /* $title = "شرکت افراگسترنوین-صفحه اصلی" ?>
 <?php
     class Content{
@@ -104,4 +104,10 @@ exit;
             روی لینک زیر کلیک کنید تا ایمیلتان تایید شود
         </div>
     </body>
+    <script>
+        let format = /../;
+        if(format.test("..")){
+            alert();
+        }
+    </script>
 </html>
