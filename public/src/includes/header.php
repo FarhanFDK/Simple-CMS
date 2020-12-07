@@ -1,3 +1,5 @@
+<?php
+?>
 <header class="header">
     <a href="" class="cursor">
     <p unselectable="on" class="float-right mr-4 mt-4 unselectable" style="position:relative;">
@@ -14,7 +16,7 @@
     <div class="ad text-center">
         <?php
             # AD TOP OF THE HEADER
-            $ad = NEW AD;
+            $ad = NEW AD();
             $ad->connect();
         ?>
 

@@ -1,4 +1,9 @@
 <?php
+
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+    
     class SCANNER{
         public $directory;
         public $handle;
@@ -28,10 +33,10 @@
 
 
     class AD{
-        public $host_name;   // SET MANUALLY
-        public $user_name;   // SET MANUALLY
-        public $user_pass;   // SET MANUALLY
-        public $db_name;     // SET MANUALLY
+        private $host_name;
+        private $user_name;
+        private $user_pass;
+        private $db_name;
         public $column;      // SET MANUALLY
         public $column2;     // SET MANUALLY
         public $column3;     // SET MANUALLY
@@ -78,12 +83,12 @@
         }
     }
 
-
-    class VISITS{
+    # must be static
+    class VISITS{  // used!
         private $host_name;   // SET MANUALLY
         private $user_name;   // SET MANUALLY
         private $user_pass;   // SET MANUALLY
-        public $db_name;     // SET MANUALLY
+        private $db_name;     // SET MANUALLY
         public $column;      // SET MANUALLY
         public $table_name;  // SET MANUALLY
         public $connection;
@@ -97,6 +102,9 @@
             $this->host_name = 'localhost';
             $this->user_name = 'root';
             $this->user_pass = '';
+            $this->db_name = 'visits';
+            $this->column = "visit_number";
+            $this->table_name = "visits";
             $this->connection = mysqli_connect($this->host_name , $this->user_name , $this->user_pass , $this->db_name);
             $this->query = "SELECT `$this->column` FROM `$this->table_name` WHERE id=1 LIMIT 1";
             $this->result = mysqli_query($this->connection , $this->query);
@@ -270,161 +278,304 @@
         private $signup_ip;
         private $cookie_login;
         private $random_number_email;
-        private $subject;
-        private $message;
-        private $headers;
         private $url;
         private $secret;
         private $response;
         private $success;
-        private $hostname;
         private $time;
         private $array;
-        public $firstname;
+        private $mail;
+        private $success_mail;
+        private $domain;
+        private $firstname;
+        private $lastname;
+        private $grade;
+        private $pattern_number;
+        private $national_code;
+        private $email;
+            private $index_length;
+            private $index_length2;
+            private $index_length_3word_1;
+            private $index_length_3word_2;
+            private $index_length_3word_3;
+            private $index_length_2_2word;
+        private $password;
+        private $password_confirm;
+            private $sp_char;
+        private $privacy_policy;
+        private $email_ad;
         public $signup_system_os;
-        public $lastname;
-        public $national_code;
-        // public $phonenumber;
-        public $email;
-        public $password;
-        public $email_ad;
-        private function connect(){
-            // use PHPMailer\PHPMailer\PHPMailer;
-            // use PHPMailer\PHPMailer\SMTP;
-            // use PHPMailer\PHPMailer\Exception;
-            // require "vendor/phpmailer/autoload.php";
-            $this->response = $_POST['response'];
-            $this->secret = $_POST['secret'];
-            $this->response = $_POST['response'];
-            $this->signup_ip_pre = new IP();
-            $this->signup_ip = $this->signup_ip_pre->getUserIP();
-            $this->url = "https://www.google.com/recaptcha/api/siteverify?" . "secret=" . $this->secret . "&response=" . $this->response . "&remote_ip=" . $this->signup_ip;
-            $this->array = json_decode(file_get_contents($this->url) , true);
-            $this->success = $this->array['success'];
-            if($this->success == true){
-                require "src/includes/jdf.php";
-                $this->signup_date = jdate('Y/m/d g:i:a a' , '' , '' , 'Asia/Tehran' , 'en');
-                $this->host_name = 'localhost';
-                $this->user_name = 'root';
-                $this->user_pass = '';
-                $this->db_name = 'users';
-                $this->table_name = 'users_information';
-                $this->connection = mysqli_connect($this->host_name , $this->user_name , $this->user_pass , $this->db_name);
-                if($this->connection == true){
-                    $this->national_code = mysqli_real_escape_string($this->connection , $this->national_code);
-                    // $this->phonenumber = mysqli_real_escape_string($this->connection , $this->phonenumber);
-                    $this->email = mysqli_real_escape_string($this->connection , $this->email);
-                    $this->email = strtolower($this->email);
-                    $this->query_confirm = "SELECT * FROM `$this->table_name` WHERE `national_code` = '$this->national_code' OR `email` = '$this->email'"; /*phonenumber = $this->phonenumber OR */
-                    $this->result_confirm = mysqli_query($this->connection , $this->query_confirm);
-                    if(mysqli_num_rows($this->result_confirm) > -1){
-                        $this->signup_date = mysqli_real_escape_string($this->connection , $this->signup_date);
-                        $this->signup_system_os = mysqli_real_escape_string($this->connection , $this->signup_system_os);
-                        $this->signup_ip = mysqli_real_escape_string($this->connection , $this->signup_ip);
-                        $this->firstname = mysqli_real_escape_string($this->connection , $this->firstname);
-                        $this->lastname = mysqli_real_escape_string($this->connection , $this->lastname);
-                        $this->password = mysqli_real_escape_string($this->connection , $this->password);
-                        $this->email_ad = mysqli_real_escape_string($this->connection , $this->email_ad);
-                        $this->hash_F = '$5$';
-                        $this->hash_F_confirm = '$5$';
-                        $this->salt = 'sixteencharacter';
-                        $this->salt_confirm = 'sixteencharacter';
-                        $this->hash_salt = $this->hash_F . $this->salt;
-                        $this->hash_salt_confirm = $this->hash_F_confirm . $this->salt_confirm;
-                        $this->password = crypt($this->password , $this->hash_salt);
-                        $this->random_number_email = rand(121030 , 989090);
-                        $this->time = time() + 320;
-                        $this->cookie_login = crypt($this->national_code . $this->firstname , $this->hash_salt_confirm);
-                        $this->cookie_login = mysqli_real_escape_string($this->connection , $this->cookie_login);
-                        //$this->cookie_login2 = crypt($this->national_code . $this->password , $this->hash_salt_confirm);
-                        $this->query = "INSERT INTO `$this->table_name`(`id`, `signup_date`, `signup_os`, `signup_ip`, `firstname`, `lastname`, `national_code`, `phonenumber`, `email`, `random_number` , `time` , `password`, `cookie_login`, `email_ad`, `post_code`, `profile_photo`, `login_date`, `login_os`, `login_ip`)";
-                        $this->query .= "VALUES(NULL , '$this->signup_date' , '$this->signup_system_os' , '$this->signup_ip' , '$this->firstname' , '$this->lastname' , '$this->national_code' , '' , '$this->email' , '$this->random_number_email' , '$this->time' , '$this->password' , '$this->cookie_login' , '$this->email_ad' , '' , '' , '' , '' , '')";
-                        $this->result = mysqli_query($this->connection , $this->query);
-                        if($this->result){
-                            $_SESSION['firstname'] = $this->firstname;
-                            $_SESSION['lastname'] = $this->lastname;
-                            $_SESSION['national_code'] = $this->national_code;
-                            $_SESSION['email'] = $this->email;
-                            // $_SESSION['email_ad'] = $this->email_ad;
-                            // $_SESSION['phonenumber'] = $this->phonenumber;
-                            /*$this->subject = "تایید ایمیل";
-                            $this->message = "
-                            <!DOCTYPE html>
-                            <html>
-                                <head>
-                                    <meta charset='UTF-8'>
-                                    <title>ایمیل خود را تایید کنید</title>
-                                    <style>
-                                        @font-face {
-                                            font-family: Samim;
-                                            src: url('../fonts/samim/Samim.eot');
-                                            src: url('../fonts/samim/Samim.eot') format('embedded-opentype'),
-                                                 url('../fonts/samim/Samim.woff') format('woff'),
-                                                 url('../fonts/samim/Samim.ttf') format('truetype');
-                                            font-weight: normal;
-                                            /* Samim font 
-                                        }
-    
-                                        body{
-                                            font-family:Samim;
-                                            text-align:center;
-                                            direction:rtl;
-                                            font-size:20px;
-                                        }
-    
-                                        #en{
-                                            direction:ltr;
-                                            font-family:Arial !important;
-                                        }
-                                    </style>
-                                </head>
-                                <body>
-                                    <div>
-    
-                                    </div>
-                                </body>
-                            </html>
-                            ";
-    
-                            // Always set content-type when sending HTML email
-                            $this->headers = "MIME-Version: 1.0" . "\r\n";
-                            $this->headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-    
-                            // More headers
-                            $this->headers .= 'From: <info@afragostarnovin.ir>' . "\r\n";
-                            $this->headers .= 'Cc: ' . $this->email . "\r\n";
-    
-                            mail($this->email,$this->subject,$this->message,$this->headers);
-                            // ob_start();
-                            // // setcookie($this->cookie_login , $this->cookie_login2 , time() + 86400 , '/' , 'localhost' , false , true);
-                            // ob_end_flush();
-                            // mail("$this->email" , "شرکت افراگسترنوین");
-                            */
-                            header("Location: verify-email.php");
-                            exit("fuck you");
-                        }else{
-                            exit("<p class='text-red-700 text-none mb-2 text-xl font-bold'>ارتباط با سرور با مشکل مواجه شد لطفا بعدا تلاش نمایید</p>");
-                        }
-                    }else{
-                        exit("<p class='text-red-700 text-none mb-2 text-xl font-bold'>شما قبلا ثبت نام کرده اید</p>");
+        // private $phonenumber;
+        function connect(){
+            $this->grade = 0;
+            $this->pattern_number = '/^\d+$/';
+            $this->sp_char = "/[ `!@#$%^&*()_+\-=\[\]{};':\\|,.<>\/?~";
+            $this->sp_char .= '"]/';
+            $this->firstname = $_POST['firstname'];
+            if(strlen($this->firstname) > 2 && strlen($this->firstname) < 26){
+                ++$this->grade;
+            }
+
+            $this->lastname = $_POST['lastname'];
+            if(strlen($this->lastname) > 3 && strlen($this->lastname) < 31){
+                ++$this->grade;
+            }
+
+            $this->national_code = $_POST['national_code'];
+            if(strlen($this->national_code) == 10){
+                ++$this->grade;
+            }
+
+            if(preg_match($this->pattern_number , $this->national_code)){
+                ++$this->grade;
+            }
+
+
+            $this->email = $_POST['email'];
+
+            if(strlen($this->email) > 8 && strlen($this->email) < 41){
+                $this->index_length = strlen(strpos($this->email , "@"));
+                $this->index_length2 = strlen(strpos($this->email , "."));
+                if($this->index_length != 0 && $this->index_length2 != 0){
+                    $this->index_length_3word_1 = strlen(substr($this->email , $this->index_length + 1 , 1));
+                    if(!($this->index_length_3word_1 == ".")){
+                        ++$this->grade;
                     }
-    
-                }else{
+
+                    $this->index_length_3word_2 = strlen(substr($this->email , $this->index_length + 2 , 1));
+                    if(!($this->index_length_3word_2 == ".")){
+                        ++$this->grade;
+                    }
+
+                    $this->index_length_3word_3 = strlen(substr($this->email , $this->index_length + 3 , 1));
+                    if(!($this->index_length_3word_3 == ".")){
+                        ++$this->grade;
+                    }
+
+                    $this->index_length_2_2word = strlen(substr($this->email , $this->index_length2 , 2));
+                    if($this->index_length_2_2word == 2){
+                        ++$this->grade;
+                    }
+                }
+            }
+
+            /*$phonenumber = $_POST['phonenumber_final_value'];
+
+            if(strlen($phonenumber) == 11){
+                ++$this->grade;
+            }
+
+            if(preg_match($pattern_number , $phonenumber)){
+                ++$this->grade;
+            }*/
+
+            $this->password = $_POST['password'];
+            $this->password_confirm = $_POST['password'];
+            if($this->password_confirm == $this->password){
+                ++$this->grade;
+            }
+
+            if(strlen($this->password) > 7 && strlen($this->password) < 33){
+                ++$this->grade;
+            }
+
+            if(preg_match("/[a-z]/i" , $this->password)){
+                ++$this->grade;
+            }
+
+            if(preg_match("/[A-Z]/" , $this->password)){
+                ++$this->grade;
+            }
+
+            if(preg_match("~[0-9]+~" , $this->password)){
+                ++$this->grade;
+            }
+
+            if(preg_match($this->sp_char , $this->password)){
+                ++$this->grade;
+            }
+            $this->privacy_policy = $_POST['privacy'];
+            $this->email_ad = $_POST['request_for_email'];
+            if($this->privacy_policy == true){
+                ++$this->grade;
+            }
+            $this->signup_system_os = $_POST['signup_system_os'];
+            if ($this->grade == 15) {
+                require 'vendor/autoload.php';
+                $this->response = $_POST['g-recaptcha-response'];
+                $this->secret = "6LckgPAZAAAAAMu2c0GUv4ZNGhliiY3W8xoi4x0d";
+                $this->signup_ip_pre = new IP();
+                $this->signup_ip = $this->signup_ip_pre->getUserIP();
+                $this->url = "https://www.google.com/recaptcha/api/siteverify?" . "secret=" . $this->secret . "&response=" . $this->response . "&remote_ip=" . $this->signup_ip;
+                $this->array = json_decode(file_get_contents($this->url), true);
+                $this->success = $this->array['success'];
+                $this->domain = $this->array['hostname'];
+                if ($this->success == true && $this->domain == "localhost") { // DD
+                    require "src/includes/jdf.php";
+                    $this->signup_date = jdate('Y/m/d g:i:a a', '', '', 'Asia/Tehran', 'en');
+                    $this->host_name = 'localhost';
+                    $this->user_name = 'root';
+                    $this->user_pass = '';
+                    $this->db_name = 'users';
+                    $this->table_name = 'users_information';
+                    $this->connection = mysqli_connect($this->host_name, $this->user_name, $this->user_pass, $this->db_name);
+                    if ($this->connection == true) {
+                        $this->national_code = mysqli_real_escape_string($this->connection, $this->national_code);
+                        // $this->phonenumber = mysqli_real_escape_string($this->connection , $this->phonenumber);
+                        $this->email = mysqli_real_escape_string($this->connection, $this->email);
+                        $this->email = strtolower($this->email);
+                        $this->query_confirm = "SELECT * FROM `$this->table_name` WHERE `national_code` = '$this->national_code' OR `email` = '$this->email'"; /*phonenumber = $this->phonenumber OR */
+                        $this->result_confirm = mysqli_query($this->connection, $this->query_confirm);
+                        if (mysqli_num_rows($this->result_confirm) > -1) {
+                            $this->signup_date = mysqli_real_escape_string($this->connection, $this->signup_date);
+                            $this->signup_system_os = mysqli_real_escape_string($this->connection, $this->signup_system_os);
+                            $this->signup_ip = mysqli_real_escape_string($this->connection, $this->signup_ip);
+                            $this->firstname = mysqli_real_escape_string($this->connection, $this->firstname);
+                            $this->lastname = mysqli_real_escape_string($this->connection, $this->lastname);
+                            $this->password = mysqli_real_escape_string($this->connection, $this->password);
+                            $this->email_ad = mysqli_real_escape_string($this->connection, $this->email_ad);
+                            $this->hash_F = '$5$';
+                            $this->hash_F_confirm = '$5$';
+                            $this->salt = 'sixteencharacter';
+                            $this->salt_confirm = 'sixteencharacter';
+                            $this->hash_salt = $this->hash_F . $this->salt;
+                            $this->hash_salt_confirm = $this->hash_F_confirm . $this->salt_confirm;
+                            $this->password = crypt($this->password, $this->hash_salt);
+                            $this->random_number_email = rand(121030, 989090);
+                            $this->time = time() + 320;
+                            $this->cookie_login = crypt($this->national_code . $this->firstname, $this->hash_salt_confirm);
+                            $this->cookie_login = mysqli_real_escape_string($this->connection, $this->cookie_login);
+                            //$this->cookie_login2 = crypt($this->national_code . $this->password , $this->hash_salt_confirm);
+                            $this->query = "INSERT INTO `$this->table_name`(`id`, `signup_date`, `signup_os`, `signup_ip`, `firstname`, `lastname`, `national_code`, `phonenumber`, `email`, `verified` , `random_number` , `time` , `password`, `cookie_login`, `email_ad`, `post_code`, `profile_photo`, `login_date`, `login_os`, `login_ip`)";
+                            $this->query .= "VALUES(NULL , '$this->signup_date' , '$this->signup_system_os' , '$this->signup_ip' , '$this->firstname' , '$this->lastname' , '$this->national_code' , '' , '$this->email' , 'false' , '$this->random_number_email' , '$this->time' , '$this->password' , '$this->cookie_login' , '$this->email_ad' , '' , '' , '' , '' , '')";
+                            $this->result = mysqli_query($this->connection, $this->query);
+                            if ($this->result) {
+                                // $_COOKIE['email_ad'] = $this->email_ad;
+                                // $_COOKIE['phonenumber'] = $this->phonenumber;
+                                $this->mail = new PHPMailer(true);
+                                try {
+                                    $this->mail->CharSet = 'UTF-8';
+                                    $this->mail->SMTPDebug = 0; // SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+                                    $this->mail->isSMTP();                                            // Send using SMTP
+                                    $this->mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+                                    $this->mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                                    $this->mail->Username   = 'farhanabdollahiab@gmail.com';                     // SMTP username
+                                    $this->mail->Password   = '';  //                              // SMTP password
+                                    $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                                    $this->mail->Port       = 587;
+                                    $this->mail->setFrom('farhanabdollahi@afragostarnovin.ir', 'Afragostarnovin Company');
+                                    $this->mail->addAddress($this->email, $this->firstname . " " . $this->lastname);     // Add a recipient
+                                    $this->mail->addCC('farhanabdollahi@gmail.com');
+                                    $this->mail->addBCC('farhanabdollahi@gmail.com');
+                                    $this->mail->isHTML(true);  // Set email format to HTML
+                                    $this->mail->Subject = 'تایید ایمیل';
+                                    $this->mail->Body = '
+                                                            <!DOCTYPE html>
+                                                            <html>
+                                                                <head>
+                                                                    <meta charset="UTF-8">
+                                                                    <title></title>
+                                                                    <style></style>
+                                                                </head>
+                                                                <body>
+                                                                    <header>
+                                                                    </header>
+                                                                    <div>
+
+                                                                    </div>
+                                                                    <footer>
+                                                                    </footer>
+                                                                </body>
+                                                            </html>
+                                                        ' . $this->random_number_email;
+                                    $this->mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+                                    $this->mail->send();
+                                    $this->success_mail = "true";
+                                } catch (Exception $e) {
+                                    exit("<p class='text-red-700 text-none text-xl font-bold'>ارتباط موفقیت آمیز نبود</p>");
+                                }
+                                if ($this->success_mail == "true"){
+                                    $_SESSION["time"] = $this->time;
+                                    $_SESSION["firstname"] = $this->firstname;
+                                    $_SESSION["lastname"] = $this->lastname;
+                                    $_SESSION["national_code"] = $this->national_code;
+                                    $_SESSION["email"] = $this->email;
+                                    header("Location: verify-email.php");
+                                } else {
+                                    exit("false");
+                                }
+                                // ob_start();
+                                // setcookie($this->cookie_login , $this->cookie_login2 , time() + 86400 , '/' , 'localhost' , false , true); // all must be true
+                                // ob_end_flush();
+                            } else {
+                                exit("<p class='text-red-700 text-none mb-2 text-xl font-bold'>ارتباط با سرور با مشکل مواجه شد لطفا بعدا تلاش نمایید</p>");
+                            }
+                        } else {
+                            exit("<p class='text-red-700 text-none mb-2 text-xl font-bold'>شما قبلا ثبت نام کرده اید</p>");
+                        }
+                    } else {
+                        exit("<p class='text-red-700 text-none mb-2 text-xl font-bold'>ارتباط با سرور با مشکل مواجه شد</p>");
+                    }
+                } else {
                     exit("<p class='text-red-700 text-none mb-2 text-xl font-bold'>ارتباط با سرور با مشکل مواجه شد</p>");
                 }
             }else{
-                exit("<p class='text-red-700 text-none mb-2 text-xl font-bold'>ارتباط با سرور با مشکل مواجه شد</p>");
+                session_start();
+                $_SESSION['error'] = "<p class='text-red-700 text-none mb-2 text-xl font-bold'>ارتباط با سرور با مشکل مواجه شد</p>";
+                header("Location: signup.php");
             }
         }
-        private function verify_email(){
-            $this->host_name = "localhost";
-            $this->user_name = "root";
-            $this->user_pass = "";
-            $this->db_name = "users";
-            $this->table_name = "users_information";
-            $this->connection = mysqli_connect($this->host_name , $this->user_name , $this->user_pass , $this->db_name);
-
-        }
 }
-
+class VERIFY_EMAIL{
+    private $host_name;
+    private $user_name;
+    private $user_pass;
+    private $db_name;
+    private $table_name;
+    private $connection;
+    private $sql;
+    private $sql2;
+    private $firstname;
+    private $lastname;
+    private $national_code;
+    private $email;
+    private $number;
+    private $time;
+    private $row;
+    private $result;
+    private $result2;
+    function verify(){
+        $this->host_name = 'localhost';
+        $this->user_name = 'root';
+        $this->user_pass = '';
+        $this->db_name = 'users';
+        $this->table_name = 'users_information';
+        $this->connection = mysqli_connect($this->host_name , $this->user_name , $this->user_pass , $this->db_name);
+        $this->firstname = $_SESSION['firstname'];
+        $this->lastname = $_SESSION['lastname'];
+        $this->national_code = $_SESSION['national_code'];
+        $this->email = $_SESSION['email'];
+        $this->time = $_SESSION['time'];
+        $this->number = $_POST['number'];
+        $this->sql = "SELECT `national_code` , `firstname` , `lastname` , `email` , `time` , `random_number` FROM `$this->table_name` WHERE `firstname` = '$this->firstname' AND `lastname` = '$this->lastname' AND `national_code` = '$this->national_code' AND `email` = '$this->email' AND `random_number` = '$this->number' LIMIT 1";
+        $this->result = mysqli_query($this->connection , $this->sql);
+        if(mysqli_num_rows($this->result)){
+            $this->row = mysqli_fetch_assoc($this->result);
+            if($this->row['time'] > time()){
+                $this->sql2 = "UPDATE `$this->table_name` SET `verified` = 'true' WHERE `email` = '$this->email' AND `national_code` = '$this->national_code' LIMIT 1";
+                $this->result2 = mysqli_query($this->connection , $this->sql2);
+                if($this->result2){
+                    session_unset();
+                    session_destroy();
+                    exit("<span class='text-green-600 font-bold text-xl'>ایمیل شما تایید شد</span>");
+                }else{
+                    exit("<span class='text-red-600 font-bold text-xl'>ارتباط با سرور امکان پذیر نبود لطفا بعدا تلاش نمایید</span>");
+                }
+            }else{
+                exit("<span class='font-b text-none text-red-700'>کد منقضی شده است.لطفا دکمه ارسال دوباره را کلیک کنید</span>");
+            }
+               
+        }
+    }
+}
 ?>

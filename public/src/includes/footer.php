@@ -1,3 +1,5 @@
+<?php
+?>
     <footer class="footer z-0">
         <div class="flex flex-row">
             <div>

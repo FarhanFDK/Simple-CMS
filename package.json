@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/FarhanFDK/Simple-CMS/issues"
   },
-  "homepage": "https://github.com/FarhanFDK/Simple-CMS#readme"
+  "homepage": "https://github.com/FarhanFDK/Simple-CMS#readme",
+  "dependencies": {
+    "phpmailer/phpmailer": "~6.2",
+    "tecnickcom/tcpdf": "6.3.5"
+  }
 }

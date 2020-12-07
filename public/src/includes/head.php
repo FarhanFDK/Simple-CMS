@@ -1,12 +1,13 @@
 <?php
+    session_start();
+    session_regenerate_id(false);
+?>
+<?php
     if(property_exists("Content" , "h")){
         $head_content = "";
     }else{
         $head_content = '<meta http-equiv="refresh" content="0; url=http://localhost/Simple-CMS/public/index.php" />';
     }
-?>
-<?php
-    session_start();
 ?>
 <!DOCTYPE html>
 <html>
